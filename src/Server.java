@@ -37,10 +37,9 @@ public class Server {
 				}
 	}
 	
+	// Save settings
 	public void save() {
 		try {
-		    
-		     
 		    FileWriter fileWriter = new FileWriter("SavedFika.txt");
 		    PrintWriter printWriter = new PrintWriter(fileWriter);
 		    ArrayList<User> users = g.getUsers();
