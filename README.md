@@ -15,7 +15,7 @@
 ### Länkar
 - Bra youtube-guide för att komma igång med Eclipse och GitHub: [GitHub and Eclipse](https://www.youtube.com/watch?v=XuuzSaelUzo)
 - Git från terminalen (kommandoraden): [Git Basics - Working with Remotes](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes)
-- Git Tutorial [thenewboston](https://www.youtube.com/watch?v=cEGIFZDyszA&list=PL6gx4Cwl9DGAKWClAD_iKpNC0bGHxGhcx)
+- Pedagogisk Git Tutorial: [thenewboston](https://www.youtube.com/watch?v=cEGIFZDyszA&list=PL6gx4Cwl9DGAKWClAD_iKpNC0bGHxGhcx)
 
 ## Problem med Eclipse och GitHub
 
