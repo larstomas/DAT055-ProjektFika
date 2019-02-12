@@ -1,3 +1,5 @@
-Jag,120,false
-Alex,100,false
-Mister,200,false
+julius,120,false
+alex,100,false
+mister,200,false
+tomas,100,false
+mellard,110,false
