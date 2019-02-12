@@ -205,8 +205,24 @@ m1=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>520</x>
-      <y>72</y>
+      <x>568</x>
+      <y>32</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>Client
+--
+
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>392</x>
+      <y>32</y>
       <w>168</w>
       <h>152</h>
     </coordinates>
