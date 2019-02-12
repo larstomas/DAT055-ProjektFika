@@ -1,3 +1,0 @@
-Alex,100,false
-Jag,120,false
-Admin,1000,false
