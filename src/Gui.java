@@ -71,8 +71,7 @@ public class Gui extends JFrame{
 		}
 
 		private void sendVote(int i) {
-			System.out.println("Du gav tomas en: " + i);	
-			
+			System.out.println("Du gav tomas en: " + i);
 		}
 		
 		//CREATES THE PANEL AND LIST FOR HIGHSCORE
@@ -101,7 +100,6 @@ public class Gui extends JFrame{
 			jp.add(scorePanel);
 		}
 		
-		
 		//CREATES POSITIONLABELS FOR HIGH SCORE
 		private ArrayList<JLabel> makePositionLabels(int noOfLabels) {
 			ArrayList<JLabel> labels = new ArrayList<>();
@@ -111,6 +109,7 @@ public class Gui extends JFrame{
 			}			
 			return labels;
 		}
+		
 		//CREATES SCORELABELS FOR HIGHSCORE
 		private void createHighScore() {
 			group.getFikaScore().sort();
@@ -129,6 +128,7 @@ public class Gui extends JFrame{
 
 			}
 		}
+		
 		//CREATES USER LABELS
 		private void makeUserLabels() {
 					
@@ -138,18 +138,19 @@ public class Gui extends JFrame{
 				
 			}	
 		}
+		
 		//CREATES QUEUE PANEL AND ADDS USERLABELS
 		private void makeQueue(int noOfUsers) {
 			queuePanel = new JPanel();
 			queuePanel.setLayout(new BoxLayout(queuePanel, BoxLayout.PAGE_AXIS));
 			queuePanel.setBorder(new EtchedBorder());		
-				jl = new JLabel("K�lista");
+				jl = new JLabel("Kölista");
 				jl.setBorder(new EtchedBorder());	
 				
 				qOrderPanel = new JPanel();
 				qOrderPanel.setBorder(new EtchedBorder());	
 				
-					jl4 = new JLabel("N�sta");
+					jl4 = new JLabel("Nösta");
 					jl4.setBorder(new EtchedBorder());
 
 				
@@ -170,6 +171,7 @@ public class Gui extends JFrame{
 				queuePanel.add(qOrderPanel);
 				jp.add(queuePanel);
 		}
+		
 		//CREATES VOTING BUTTONS
 		private void makeVotingButtons(int noOfButtons) {
 			for(int i = 0; i < noOfButtons; i++) {
@@ -182,13 +184,14 @@ public class Gui extends JFrame{
 				temp.addActionListener((e) -> {sendVote(innerMi);});
 			}	
 		}
+		
 		//CREATES VOTING MENU
 		private void makeVotingMenu() {
 			votePanel = new JPanel();
 			votePanel.setBorder(new EtchedBorder());
 			votePanel.setLayout(new BoxLayout(votePanel, BoxLayout.PAGE_AXIS));
 			
-			jl2 = new JLabel("R�sta p�: ");
+			jl2 = new JLabel("Rösta på: ");
 			jl2.setBorder(new EtchedBorder());	
 			
 			JPanel subHeadPanel = new JPanel();
@@ -208,6 +211,7 @@ public class Gui extends JFrame{
 			jp.add(votePanel);
 			
 		}
+		
 		//MAKES MENUBAR
 		private void makeMenuBar() {
 			
