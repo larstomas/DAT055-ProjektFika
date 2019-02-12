@@ -44,8 +44,7 @@ public class Gui extends JFrame{
 			userScore = new ArrayList<>();
 		}	
 		
-		
-		
+		// 
 		public void makeFrame(){
 			
 			//MENUBAR
@@ -71,11 +70,11 @@ public class Gui extends JFrame{
 			
 		}
 
-
 		private void sendVote(int i) {
 			System.out.println("Du gav tomas en: " + i);	
 			
 		}
+		
 		//CREATES THE PANEL AND LIST FOR HIGHSCORE
 		private void makeHighScore(int nrOfUsers) {
 			
@@ -144,13 +143,13 @@ public class Gui extends JFrame{
 			queuePanel = new JPanel();
 			queuePanel.setLayout(new BoxLayout(queuePanel, BoxLayout.PAGE_AXIS));
 			queuePanel.setBorder(new EtchedBorder());		
-				jl = new JLabel("Kölista");
+				jl = new JLabel("Kï¿½lista");
 				jl.setBorder(new EtchedBorder());	
 				
 				qOrderPanel = new JPanel();
 				qOrderPanel.setBorder(new EtchedBorder());	
 				
-					jl4 = new JLabel("Nästa");
+					jl4 = new JLabel("Nï¿½sta");
 					jl4.setBorder(new EtchedBorder());
 
 				
@@ -189,7 +188,7 @@ public class Gui extends JFrame{
 			votePanel.setBorder(new EtchedBorder());
 			votePanel.setLayout(new BoxLayout(votePanel, BoxLayout.PAGE_AXIS));
 			
-			jl2 = new JLabel("Rösta på: ");
+			jl2 = new JLabel("Rï¿½sta pï¿½: ");
 			jl2.setBorder(new EtchedBorder());	
 			
 			JPanel subHeadPanel = new JPanel();
