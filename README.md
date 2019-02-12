@@ -12,7 +12,7 @@
 - I Eclipse gör en "Import" från Git
 
 ### Länkar
-- Bra guide för att komma igång med Eclipse och GitHub: [GitHub and Eclipse](https://www.youtube.com/watch?v=XuuzSaelUzo)
+- Bra youtube-guide för att komma igång med Eclipse och GitHub: [GitHub and Eclipse](https://www.youtube.com/watch?v=XuuzSaelUzo)
 
 ## Problem med Eclipse
 
