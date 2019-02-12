@@ -1,0 +1,3 @@
+Jag,120,false
+Alex,100,false
+Mister,200,false
