@@ -1,13 +1,12 @@
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class login {
+public class Login {
     Group gr;
     String userID; 
     boolean loggedin = false;
-    public login(Group gr) {
+    public Login(Group gr) {
     	this.gr = gr;    	
     }
     
