@@ -15,6 +15,6 @@
 - Bra youtube-guide för att komma igång med Eclipse och GitHub: [GitHub and Eclipse](https://www.youtube.com/watch?v=XuuzSaelUzo)
 - Git från terminalen (kommandoraden): [Git Basics - Working with Remotes](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes)
 
-## Problem med Eclipse
+## Problem med Eclipse och GitHub
 
 - Lös [master rejected non-fast-forward](https://stackoverflow.com/questions/19474186/egit-rejected-non-fast-forward)
