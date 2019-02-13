@@ -20,7 +20,7 @@ public class Main {
 
 
 
-//Hejjajajas 
 
+//Hejjajajas 
 //BERKO ÄR EN TÖNTFJANT
 //hej hej
