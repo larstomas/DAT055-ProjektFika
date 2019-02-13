@@ -15,4 +15,12 @@ public class Main {
 		
 	}
 }
+
+
+
+
+
+
+
 //BERKO ÄR EN TÖNTFJANT
+
