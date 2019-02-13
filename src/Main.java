@@ -15,4 +15,4 @@ public class Main {
 		
 	}
 }
-//BERKO ÄR EN TÖNT
+//BERKO ÄR EN TÖNTFJANT
