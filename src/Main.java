@@ -15,12 +15,3 @@ public class Main {
 		
 	}
 }
-
-
-
-
-
-//Hejjajajas 
-
-//BERKO ÄR EN TÖNTFJANT
-//hej hej
