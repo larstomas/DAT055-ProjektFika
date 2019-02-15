@@ -1,3 +1,7 @@
+package client;
+import fikaAssests.Group;
+import fikaAssests.Login;
+import server.Server;
 
 public class Main {
 	

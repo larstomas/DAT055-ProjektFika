@@ -1,5 +1,7 @@
-julius,120,false
-alex,100,false
-mister,200,false
+mellard,404,false
+jonatan,237,false
+julius,210,false
 tomas,100,false
-mellard,110,false
+alex,10,true
+--VOTE--
+jonatan,1,5

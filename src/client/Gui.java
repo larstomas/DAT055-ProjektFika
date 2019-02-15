@@ -1,9 +1,14 @@
+package client;
 import java.awt.*;
-//import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.border.*;
+
+import fikaAssests.Group;
+import fikaAssests.User;
+
 import java.util.*;
 
 public class Gui extends JFrame{
@@ -13,6 +18,7 @@ public class Gui extends JFrame{
 		JMenuBar menubar;
 		JMenuItem quit;
 		JMenuItem login;
+		JMenuItem nextFika;
 		JMenuItem help;
 		JLabel jl;
 		JLabel jl2;
@@ -26,13 +32,13 @@ public class Gui extends JFrame{
 		JPanel votingPanel;
 		JPanel scores;
 		Group group;
-		String currUser;
+		User currUser;
 		ArrayList<JLabel> queueUsers;
 		ArrayList<JLabel> highScore;
 		ArrayList<JLabel> userScore;
 		ArrayList<JButton> votingButtons;
 		
-		public Gui(Group gr, String currUser){
+		public Gui(Group gr, User currUser){
 			this.group = gr;
 			this.currUser = currUser;
 			queueUsers = new ArrayList<>();
@@ -41,7 +47,8 @@ public class Gui extends JFrame{
 			userScore = new ArrayList<>();
 		}	
 		
-		// 
+		
+		
 		public void makeFrame(){
 			
 			//MENUBAR
@@ -67,10 +74,19 @@ public class Gui extends JFrame{
 			
 		}
 
+
 		private void sendVote(int i) {
-			System.out.println("Du gav tomas en: " + i);
+			if(currUser.getID().equals(group.getV().getCurrent().getID())) {
+				System.out.println("Du kan inte rösta på din egen fika!");
+			}else{
+				if(group.sendVote(i, currUser)) {
+					System.out.println("Du gav " + group.getV().getCurrent().getID() + " en: " + i);
+				}else{
+					System.out.println("Du har redan röstat!");
+				}
+			}
 		}
-		
+				
 		//CREATES THE PANEL AND LIST FOR HIGHSCORE
 		private void makeHighScore(int nrOfUsers) {
 			
@@ -97,6 +113,7 @@ public class Gui extends JFrame{
 			jp.add(scorePanel);
 		}
 		
+		
 		//CREATES POSITIONLABELS FOR HIGH SCORE
 		private ArrayList<JLabel> makePositionLabels(int noOfLabels) {
 			ArrayList<JLabel> labels = new ArrayList<>();
@@ -106,7 +123,6 @@ public class Gui extends JFrame{
 			}			
 			return labels;
 		}
-		
 		//CREATES SCORELABELS FOR HIGHSCORE
 		private void createHighScore() {
 			group.getFikaScore().sort();
@@ -125,17 +141,15 @@ public class Gui extends JFrame{
 
 			}
 		}
-		
 		//CREATES USER LABELS
 		private void makeUserLabels() {
 					
-			for(User u: group.getUsers()) {
+			for(User u: group.getQue().getUsers()) {
 				
 				queueUsers.add(new JLabel(u.getID()));
 				
 			}	
 		}
-		
 		//CREATES QUEUE PANEL AND ADDS USERLABELS
 		private void makeQueue(int noOfUsers) {
 			queuePanel = new JPanel();
@@ -147,7 +161,7 @@ public class Gui extends JFrame{
 				qOrderPanel = new JPanel();
 				qOrderPanel.setBorder(new EtchedBorder());	
 				
-					jl4 = new JLabel("Nösta");
+					jl4 = new JLabel("Nästa");
 					jl4.setBorder(new EtchedBorder());
 
 				
@@ -168,7 +182,6 @@ public class Gui extends JFrame{
 				queuePanel.add(qOrderPanel);
 				jp.add(queuePanel);
 		}
-		
 		//CREATES VOTING BUTTONS
 		private void makeVotingButtons(int noOfButtons) {
 			for(int i = 0; i < noOfButtons; i++) {
@@ -181,7 +194,6 @@ public class Gui extends JFrame{
 				temp.addActionListener((e) -> {sendVote(innerMi);});
 			}	
 		}
-		
 		//CREATES VOTING MENU
 		private void makeVotingMenu() {
 			votePanel = new JPanel();
@@ -199,7 +211,7 @@ public class Gui extends JFrame{
 			votingPanel.setBorder(new EtchedBorder());
 			makeVotingButtons(5);
 				
-			subHeadPanel.add(new JLabel("Tomas fika"));	
+			subHeadPanel.add(new JLabel(group.getV().getCurrent().getID()+" fika"));	
 			subHeadPanel.add(votingPanel);
 					
 			votePanel.add(jl2);
@@ -208,17 +220,19 @@ public class Gui extends JFrame{
 			jp.add(votePanel);
 			
 		}
-		
 		//MAKES MENUBAR
 		private void makeMenuBar() {
 			
-			fileMenu = new JMenu("File");
-			login = new JMenuItem("Login");
-			fileMenu.add(login);
+			fileMenu = new JMenu("Menu");
+			
+			nextFika = new JMenuItem("Nästa fika");
+			fileMenu.add(nextFika);
+			nextFika.addActionListener(e->group.nextFika());
 			
 			quit = new JMenuItem("Quit");
 			fileMenu.add(quit);
-		
+			quit.addActionListener(e->quitApp());
+			
 			helpMenu = new JMenu("Help");
 			help = new JMenuItem("Help");
 			helpMenu.add(help);
@@ -227,6 +241,9 @@ public class Gui extends JFrame{
 			menubar.add(fileMenu);
 			menubar.add(helpMenu);
 			setJMenuBar(menubar);
+		}
+		private void quitApp() {
+			System.exit(0);
 		}
 		
 }

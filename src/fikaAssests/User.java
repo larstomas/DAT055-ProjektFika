@@ -1,3 +1,4 @@
+package fikaAssests;
 
 public class User {
 	private String ID;
@@ -23,7 +24,7 @@ public class User {
 		return rating;
 	}
 	public void setRating(int rating) {
-		this.rating = rating;
+		this.rating = this.rating+rating;
 	}
 	public boolean isHasVoted() {
 		return hasVoted;
