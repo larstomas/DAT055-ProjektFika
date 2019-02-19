@@ -32,11 +32,11 @@ public class ClientHandler extends Thread implements Observer{
         	try { 
   
                 // Ask user what he wants 
-        		
         		if(setGroup == false){
         			oos.writeObject(g); 
         			setGroup = true;
         			System.out.println("First group set");
+        			
         			
         	}
                 
@@ -73,9 +73,21 @@ public class ClientHandler extends Thread implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
+		System.out.println("Har fått fika");
 		if( arg instanceof Group && arg != null){
 			this.g = (Group) arg;
-			setGroup = false;
+			System.out.println("har satt fika");
+			setSetGroup(false);
+			run();
 		}
+	}
+
+	public Boolean getSetGroup() {
+		return setGroup;
+	}
+
+	public void setSetGroup(Boolean v) {
+		this.setGroup = v;
+		System.out.println("setGroup is:" + this.setGroup);
 	}    
 } 

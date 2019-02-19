@@ -34,6 +34,7 @@ public class Client  {
 	     { 
 	         while (true)  
 	         {   
+	        	 
 	             Object received = ois.readObject();
 	             System.out.println("har tagit emot object");
 	             if(received instanceof Group && gui == null){
@@ -45,6 +46,8 @@ public class Client  {
 	            	 gui = new Gui(group, log.getLogin());
 	                 gui.makeFrame();
 	             } else if(received instanceof Group){
+	            	 System.out.println("Client har fått fika");
+	            	 
 	            	 this.group = (Group)received;
 	            	 gui.setNewGroup(group);
 	             }

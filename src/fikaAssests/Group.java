@@ -61,14 +61,22 @@ public class Group  extends Observable implements Serializable{
 		}
 	}
 	public void nextFika() {
-		v.calcVote();
+		/*v.calcVote();
 		q.nextUser();
 		v.resetVote(q.getUsers().get(0));
 		resetHasVoted();
 		FileHandler s = new FileHandler(this);
-		s.save();
+		s.save();*/
+		System.out.println("redo för nästa fika");
+		Group fakeGr = new Group();
+		fakeGr.addUser("Tompa", 3, false);
+		fakeGr.addUser("Julle", 3, false);
+		fakeGr.addUser("Alle", 3, false);
+		fakeGr.addUser("Malle", 3, false);
+		fakeGr.addUser("Berra", 3, false);
+		//this = fakeGr;
 		setChanged();
-		notifyObservers(this);
+		notifyObservers(fakeGr);
 	}
 	public User findUser(String user) {
 		for(User u: users) {

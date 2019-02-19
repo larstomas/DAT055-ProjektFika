@@ -62,5 +62,13 @@ public class Server
     	while(true){
     		s.listenForClients();
     	}
-    } 
+    }
+
+	public Group getGroup() {
+		return gr;
+	}
+
+	public void setGroup(Group gr) {
+		this.gr = gr;
+	} 
 } 
