@@ -1,73 +1,65 @@
 package server;
-import java.io.*;
+import fikaAssests.*;
+import java.net.*;
 import java.util.ArrayList;
+import java.io.*;
 
-import fikaAssests.Group;
-import fikaAssests.User;
-import fikaAssests.Vote;
-public class Server {
-	Group g;
-	public Server(Group g) {
-		this.g = g;
-	}
+
+public class Server  
+{ 
 	
-	public Server() {	
-	}
+	DataInputStream dis;
+    DataOutputStream dos;
+    ServerSocket ss;
+    Socket s;
+    Group gr;
+    FileHandler fl;
+    
+    
+    public Server() throws IOException{
+    	
+    	ss = new ServerSocket(5056);
+    	gr = new Group();
+    	fl = new FileHandler(gr);
+    	fl.load();
+    	gr = fl.getG();
+    }
 	
-	public void load() {
-		try {
-			BufferedReader reader =
-			new BufferedReader(
-			new FileReader("SavedFika.txt"));
-			String line = reader.readLine();
-			while(line != null) {
-				//Splits the text line where "," is present and each word will be stored in an array
-				if(line!=null) {
-					if(line.equals("--VOTE--")) {
-						Vote v = g.getV();
-						line = reader.readLine();
-						String[] vote = line.split("[,]");
-						v.loadVote(g.findUser(vote[0]),Integer.parseInt(vote[1]),Integer.parseInt(vote[2]));
-					}else {
-						String[] user = line.split("[,]");
-						// the array of words will be used to create a new user.
-						g.addUser(user[0], Integer.parseInt(user[1]) , Boolean.parseBoolean(user[2]));
-					}
-				}
-				line = reader.readLine();
-			}
-			
-			reader.close();
-			}
-			catch(FileNotFoundException e) {
-				System.out.println("File not found. Make sure SavedFika.txt is in folder or outside the source folder! Exiting now!");
-				System.exit(0);
-			}
-			catch(IOException e) {
-				System.out.println("Something went wrong while reading file! Make sure SavedFika is not empty! Exiting now!");
-				System.exit(0);
-				}
+	public void listenForClients() throws IOException{
+            try { 
+                // socket object to receive incoming client requests 
+                s = ss.accept(); 
+                System.out.println("A new client is connected : " + s); 
+                  
+                // obtaining input and out streams 
+                ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream()); 
+                oos.flush();
+                ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
+                System.out.println("Strömar skapade"); 
+                
+                
+                
+                // create a new thread object 
+                Thread t = new ClientHandler(s, ois, oos, gr);
+                System.out.println("Tread öppen");
+  
+                // Invoking the start() method 
+                t.start();             
+                  
+            } catch (Exception e){ 
+                s.close(); 
+                e.printStackTrace(); 
+            }
+        
 	}
-	
-	// Save settings
-	public void save() {
-		try {
-		    FileWriter fileWriter = new FileWriter("SavedFika.txt");
-		    PrintWriter printWriter = new PrintWriter(fileWriter);
-		    ArrayList<User> users = g.getQue().getUsers();
-		    Vote v = g.getV();
-		    for(User u : users) {
-		    // Saves all users in group into a text file where each variable  is with an "," at the end to seperate them.
-		    printWriter.printf(u.getID()+ ","+ u.getRating()+","+u.isHasVoted());
-		    printWriter.println();
-		    }
-		    printWriter.println("--VOTE--");
-		    printWriter.println(v.getCurrent().getID() + "," + v.getNoOfVotes() + "," + v.getCurrRating());
-		    printWriter.close();
-			}
-			catch(IOException e) {
-				System.out.println("Something went wrong while saving! Exiting now!");
-				System.exit(0);
-			}
-	}
-}
+    
+    
+    public static void main(String[] args) throws IOException  
+    {
+    	Server s = new Server();
+    	
+    	while(true){
+    		s.listenForClients();
+    	}
+    } 
+} 

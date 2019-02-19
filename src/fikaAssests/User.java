@@ -1,6 +1,8 @@
 package fikaAssests;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
 	private String ID;
 	private int rating;
 	private boolean hasVoted;

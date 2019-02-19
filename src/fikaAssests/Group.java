@@ -1,7 +1,8 @@
 package fikaAssests;
+import java.io.Serializable;
 import java.util.*;
-import server.Server;
-public class Group {
+import server.FileHandler;
+public class Group implements Serializable{
 	private ArrayList<User> users;
 	private Vote v;
 	private FikaScore fs;
@@ -52,7 +53,7 @@ public class Group {
 		if(!votingUser.isHasVoted()) {
 			v.incomingVote(voteValue);
 			votingUser.setHasVoted(true);
-			Server s = new Server(this);
+			FileHandler s = new FileHandler(this);
 			s.save();
 			return true;
 		}else {
@@ -64,7 +65,7 @@ public class Group {
 		q.nextUser();
 		v.resetVote(q.getUsers().get(0));
 		resetHasVoted();
-		Server s = new Server(this);
+		FileHandler s = new FileHandler(this);
 		s.save();
 	}
 	public User findUser(String user) {

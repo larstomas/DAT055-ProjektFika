@@ -245,4 +245,21 @@ public class Gui extends JFrame{
 			System.exit(0);
 		}
 		
+		//Changes the labels of Highscore and Queue for the new group
+		public void setNewGroup(Group g){
+			for(int i = 0 ; i < g.getUsers().size() ; i++){
+				queueUsers.get(i).setText(g.getUsers().get(i).getID());
+			}
+			
+			
+			g.getFikaScore().sort();
+			for(int i = 0 ; i < highScore.size() ; i++){
+				highScore.get(i).setText(Integer.toString(g.getFikaScore().getUsers().get(i).getRating()));
+				userScore.get(i).setText(g.getFikaScore().getUsers().get(i).getID());
+			}
+			
+
+			
+		}
+		
 }

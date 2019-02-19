@@ -1,7 +1,8 @@
 package fikaAssests;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class FikaScore {
+public class FikaScore implements Serializable{
 	ArrayList<User> users;
 	public FikaScore(ArrayList<User> users) {
 		this.users = users;

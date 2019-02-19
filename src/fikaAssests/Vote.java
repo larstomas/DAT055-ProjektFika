@@ -1,6 +1,8 @@
 package fikaAssests;
 
-public class Vote {
+import java.io.Serializable;
+
+public class Vote implements Serializable{
 	private User current;
 	private int noOfVotes;
 	private int currRating;

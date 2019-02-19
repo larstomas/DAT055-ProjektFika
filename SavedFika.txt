@@ -1,7 +1,7 @@
-jonatan,247,false
-julius,210,false
-tomas,100,false
-alex,10,false
-mellard,404,false
+Jonatan,251,false
+Julius,210,false
+Tomas,100,false
+Alex,10,false
+Mellard,404,false
 --VOTE--
-jonatan,0,0
+Jonatan,0,0

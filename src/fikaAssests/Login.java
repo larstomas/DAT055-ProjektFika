@@ -1,8 +1,9 @@
 package fikaAssests;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class Login {
+public class Login implements Serializable{
     Group gr;
     String userID; 
     User currUser;
@@ -37,7 +38,7 @@ public User getLogin() {
 	return this.currUser;
 
 	}
-public Boolean getLoggedIn() {
+public Boolean isLoggedIn() {
 	return loggedin;
 
 	}

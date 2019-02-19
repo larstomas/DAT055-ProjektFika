@@ -1,21 +1,16 @@
 package fikaAssests;
+import java.io.Serializable;
 import java.util.*;
 
-public class Que {
+public class Que implements Serializable{
 	Group g;
 	ArrayList<User> users;
 	public Que(ArrayList<User> users) {
 		this.users = users;
 	}
 	public void nextUser() {
-		User temp;
-        for (int i = 0; i < users.size()+1; i++){
-            temp = users.get(0);
-            for (int j = 0; j < users.size()-1; j++){
-            	users.set(j, users.get(j+1));
-            }
-            users.set(users.size() - 1, temp);
-        }	
+		User temp = users.remove(0);
+        users.add(users.size(), temp);
 	}
 	public ArrayList<User> getUsers(){
 		return users;

@@ -1,21 +1,14 @@
 package client;
+import java.io.IOException;
+
 import fikaAssests.Group;
 import fikaAssests.Login;
-import server.Server;
+import server.FileHandler;
 
 public class Main {
 	
-	public static void main(String[] args) {
-		Group gr = new Group();	
-		Server s = new Server(gr);
-		s.load();
-		
-		Login log = new Login(gr);
-		while(!log.getLoggedIn()) {
-			log.checklogin();
-		}
-		Gui g = new Gui(gr,log.getLogin());
-		g.makeFrame();
-		
-	}
+	public static void main(String[] args) throws IOException { 
+		Client c = new Client();
+		c.recieveAndSend();
+	} 
 }
