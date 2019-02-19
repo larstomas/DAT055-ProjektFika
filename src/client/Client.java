@@ -61,10 +61,6 @@ public class Client  {
 		
 	}
 	
-	
-	public static void main(String[] args) throws IOException { 
-		Client c = new Client();
-		c.recieveAndSend();
-	} 
+
 	
 } 

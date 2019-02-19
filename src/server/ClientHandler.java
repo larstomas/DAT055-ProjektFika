@@ -2,15 +2,15 @@ package server;
 import fikaAssests.*;
 import java.io.*;
 import java.net.*;
+import java.util.Observable;
+import java.util.Observer;
 
-public class ClientHandler extends Thread  
-{ 
+public class ClientHandler extends Thread implements Observer{ 
     final ObjectInputStream ois; 
     final ObjectOutputStream oos; 
     final Socket s; 
     Group g;
-    Group g2;
-    Boolean firstGroup = false;
+    Boolean setGroup = false;
   
     // Constructor 
     public ClientHandler(Socket s, ObjectInputStream dis, ObjectOutputStream dos, Group gr)  
@@ -33,14 +33,11 @@ public class ClientHandler extends Thread
   
                 // Ask user what he wants 
         		
-        		if(firstGroup == false){
+        		if(setGroup == false){
         			oos.writeObject(g); 
-        			firstGroup = true;
+        			setGroup = true;
         			System.out.println("First group set");
         			
-        			
-        			
-        			//oos.writeObject(g2);
         	}
                 
         		
@@ -72,5 +69,13 @@ public class ClientHandler extends Thread
         }catch(IOException e){ 
             e.printStackTrace(); 
         }*/ 
-    }    
+    }
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if( arg instanceof Group && arg != null){
+			this.g = (Group) arg;
+			setGroup = false;
+		}
+	}    
 } 

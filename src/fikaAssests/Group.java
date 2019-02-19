@@ -2,7 +2,7 @@ package fikaAssests;
 import java.io.Serializable;
 import java.util.*;
 import server.FileHandler;
-public class Group implements Serializable{
+public class Group  extends Observable implements Serializable{
 	private ArrayList<User> users;
 	private Vote v;
 	private FikaScore fs;
@@ -67,6 +67,8 @@ public class Group implements Serializable{
 		resetHasVoted();
 		FileHandler s = new FileHandler(this);
 		s.save();
+		setChanged();
+		notifyObservers(this);
 	}
 	public User findUser(String user) {
 		for(User u: users) {

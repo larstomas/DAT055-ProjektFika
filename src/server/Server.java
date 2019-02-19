@@ -42,7 +42,8 @@ public class Server
                 // create a new thread object 
                 Thread t = new ClientHandler(s, ois, oos, gr);
                 System.out.println("Tread öppen");
-  
+                
+                this.gr.addObserver((ClientHandler) t);
                 // Invoking the start() method 
                 t.start();             
                   

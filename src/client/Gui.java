@@ -227,6 +227,7 @@ public class Gui extends JFrame{
 			nextFika = new JMenuItem("Nästa fika");
 			fileMenu.add(nextFika);
 			nextFika.addActionListener(e->group.nextFika());
+			nextFika.addActionListener(e->group.nextFika());
 			
 			quit = new JMenuItem("Quit");
 			fileMenu.add(quit);
