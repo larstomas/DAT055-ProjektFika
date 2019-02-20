@@ -186,7 +186,7 @@ public class Gui extends JFrame{
 				listOfRequestsPanel.add(requestTextArea);
 				requestPanel.add(jl5);
 				requestPanel.add(listOfRequestsPanel);
-				requestPanel.add(addRequest);
+				//requestPanel.add(addRequest);
 				jp.add(requestPanel);
 			
 		}
