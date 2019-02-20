@@ -262,5 +262,17 @@ public class Gui extends JFrame{
 
 			
 		}
+
+
+
+		public User getCurrUser() {
+			return currUser;
+		}
+
+
+
+		public void setCurrUser(User currUser) {
+			this.currUser = currUser;
+		}
 		
 }

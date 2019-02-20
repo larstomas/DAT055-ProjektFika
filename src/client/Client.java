@@ -15,14 +15,17 @@ public class Client  {
 	Group group;
 	Gui gui = null;
 	Login log = null;
+	Object received = null;
+	Object sending = null;
+	boolean sendVote;
 	
 	public Client(){
 		try{
 			
 	        ip = InetAddress.getByName("localhost"); 
 	        s = new Socket(ip, 5056); 
-	        ois = new ObjectInputStream(s.getInputStream()); 
-	        oos = new ObjectOutputStream(s.getOutputStream());
+	        //ois = new ObjectInputStream(s.getInputStream()); 
+	        //oos = new ObjectOutputStream(s.getOutputStream());
 	        
 		} catch (Exception e){
 			
@@ -32,11 +35,13 @@ public class Client  {
 	public void recieveAndSend(){
 		try
 	     { 
-	         while (true)  
-	         {   
-	        	 
-	             Object received = ois.readObject();
-	             System.out.println("har tagit emot object");
+			ois = new ObjectInputStream(s.getInputStream()); 
+	        oos = new ObjectOutputStream(s.getOutputStream());
+			while(received == null){
+	             
+				received = ois.readObject();
+				System.out.println("har tagit emot object");
+	             
 	             if(received instanceof Group && gui == null){
 	            	 this.group = (Group)received;
 	            	 log = new Login(group);
@@ -51,13 +56,32 @@ public class Client  {
 	            	 this.group = (Group)received;
 	            	 gui.setNewGroup(group);
 	             }
+			}     
+	        received = null;
+	             
+	        if(this.gui.getCurrUser().hasVoted()){
+	        	sending = gui.getCurrUser().getVoteValue();
 
+	         } else {
+	        	 sending = 0;
 	         } 
-	           
+	        oos.writeObject(sending);
+	        
+	        while(received == null){
+	             
+				received = ois.readObject();
+				System.out.println("Client har fått fika");
+	            	 
+	            this.group = (Group)received;
+	            gui.setNewGroup(group);
+	             
+			}     
+	        received = null;
+	        
 	         // closing resources 
-	         /*scn.close(); 
+
 	         ois.close(); 
-	         oos.close(); */
+	         oos.close(); 
 	     }catch(Exception e){ 
 	         e.printStackTrace(); 
 	     } 

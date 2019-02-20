@@ -6,9 +6,19 @@ public class User implements Serializable{
 	private String ID;
 	private int rating;
 	private boolean hasVoted;
+	private int voteValue;
 	
 	
-	
+	public int getVoteValue() {
+		return voteValue;
+	}
+
+
+	public void setVoteValue(int voteValue) {
+		this.voteValue = voteValue;
+	}
+
+
 	public User(String name){
 		this.ID = name;
 		this.rating = 0;
@@ -28,7 +38,7 @@ public class User implements Serializable{
 	public void setRating(int rating) {
 		this.rating = this.rating+rating;
 	}
-	public boolean isHasVoted() {
+	public boolean hasVoted() {
 		return hasVoted;
 	}
 	public void setHasVoted(boolean hasVoted) {
