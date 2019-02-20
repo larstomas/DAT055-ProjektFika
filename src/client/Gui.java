@@ -1,6 +1,9 @@
 ﻿package client;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -17,13 +20,11 @@ public class Gui extends JFrame{
 		JMenuBar menubar;
 		JMenuItem quit;
 		JMenuItem login;
-		JMenuItem nextFika;
 		JMenuItem help;
 		JMenuItem addRequest;
 		JLabel jl;
 		JLabel jl2;
 		JLabel jl3;
-		JLabel jl4;
 		JLabel jl5;
 		JTextArea requestTextArea; 
 		Dimension d;
@@ -56,13 +57,15 @@ public class Gui extends JFrame{
 		
 		
 		public void makeFrame(){
+
 			
 			//MENUBAR
 			makeMenuBar();
 			
 			//MAINWINDOW JPANEL 1,3 GRID
 			jp = new JPanel(new GridLayout(1,4));
-			setLocationRelativeTo(null);
+			
+			
 			setPreferredSize(d);
 			
 			//CREATE USER LABELS. SAVED IN queueUsers AND highScoreUsers
@@ -104,6 +107,7 @@ public class Gui extends JFrame{
 			scorePanel = new JPanel();
 			scorePanel.setBorder(new EtchedBorder());
 			scorePanel.setLayout(new BoxLayout(scorePanel, BoxLayout.Y_AXIS));
+			
 				jl3 = new JLabel("Fikascore");
 				jl3.setBorder(new EtchedBorder());
 				scores = new JPanel(new GridLayout(nrOfUsers,3));
@@ -195,17 +199,16 @@ public class Gui extends JFrame{
 		private void makeQueue(int noOfUsers) {
 			queuePanel = new JPanel();
 			queuePanel.setLayout(new BoxLayout(queuePanel, BoxLayout.PAGE_AXIS));
+			
 			queuePanel.setBorder(new EtchedBorder());		
 				jl = new JLabel("Kölista");
 				jl.setBorder(new EtchedBorder());
 				
 				qOrderPanel = new JPanel();
-				qOrderPanel.setBorder(new EtchedBorder());	
+				qOrderPanel.setBorder(new EtchedBorder());
 				
-					jl4 = new JLabel("Nästa");
-					jl4.setBorder(new EtchedBorder());
 
-				
+					
 					qOrderList = new JPanel(new GridLayout(noOfUsers,1));
 					
 						qOrderList.setBorder(new EtchedBorder());	
@@ -216,9 +219,9 @@ public class Gui extends JFrame{
 						}
 							
 					
-					qOrderPanel.add(jl4, JPanel.TOP_ALIGNMENT);
+					
 					qOrderPanel.add(qOrderList);
-						
+					
 				queuePanel.add(jl);	
 				queuePanel.add(qOrderPanel);
 				jp.add(queuePanel);
@@ -266,18 +269,12 @@ public class Gui extends JFrame{
 			
 			fileMenu = new JMenu("Menu");
 			
-			nextFika = new JMenuItem("Nästa fika");
-			fileMenu.add(nextFika);
-			nextFika.addActionListener(e->group.nextFika());
-			nextFika.addActionListener(e->group.nextFika());
+			addRequest = new JMenuItem("Lägg till önskemål");
+			fileMenu.add(addRequest);
 			
 			quit = new JMenuItem("Quit");
 			fileMenu.add(quit);
 			quit.addActionListener(e->quitApp());
-			
-			addRequest = new JMenuItem("Lägg till önskemål");
-			fileMenu.add(addRequest);
-			
 			
 			helpMenu = new JMenu("Help");
 			help = new JMenuItem("Help");
