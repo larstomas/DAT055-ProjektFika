@@ -10,6 +10,8 @@ public class ClientHandler extends Thread implements Observer{
     final ObjectOutputStream oos; 
     final Socket s; 
     Group g;
+	Object received = null; 
+    Object toreturn; 
     Boolean setGroup = false;
   
     // Constructor 
@@ -24,25 +26,24 @@ public class ClientHandler extends Thread implements Observer{
   
     @Override
     public void run() { 
-        
-    	Object received; 
-        Object toreturn; 
-        
-        while (true)  { 
+
+
         	try { 
   
-                // Ask user what he wants 
-        		if(setGroup == false){
-        			oos.writeObject(g); 
-        			setGroup = true;
+        		oos.writeObject(g); 
+
         			System.out.println("First group set");
-        			
-        			
-        	}
+        		        					                
+                while(received == null){
+                	received = ois.readObject();
+                }
                 
-        		
-                  
-                // receive the answer from client 
+                if((int)received < 0){
+
+                }
+                received = null;
+                oos.writeObject(g); 
+        		// receive the answer from client 
                 //received = ois.readUTF();
                 //System.out.println(received);
                 //oos.writeUTF("Server fick meddelande"); 
@@ -54,22 +55,21 @@ public class ClientHandler extends Thread implements Observer{
                     this.s.close(); 
                     System.out.println("Connection closed"); 
                     break; 
-                }*/
-                     
-                 
+                }*/       
+                this.ois.close(); 
+                this.oos.close(); 
             } catch (IOException e) { 
                 e.printStackTrace(); 
-            }
+            } catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }   
         
-        /*try{ 
-            this.ois.close(); 
-            this.oos.close(); 
-              
-        }catch(IOException e){ 
-            e.printStackTrace(); 
-        }*/ 
-    }
+
+
+
+    
 
 	@Override
 	public void update(Observable o, Object arg) {
@@ -78,7 +78,7 @@ public class ClientHandler extends Thread implements Observer{
 			this.g = (Group) arg;
 			System.out.println("har satt fika");
 			setSetGroup(false);
-			run();
+			//notify();
 		}
 	}
 

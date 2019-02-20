@@ -50,7 +50,7 @@ public class Group  extends Observable implements Serializable{
 	}
 
 	public boolean sendVote(int voteValue, User votingUser) {
-		if(!votingUser.isHasVoted()) {
+		if(!votingUser.hasVoted()) {
 			v.incomingVote(voteValue);
 			votingUser.setHasVoted(true);
 			FileHandler s = new FileHandler(this);

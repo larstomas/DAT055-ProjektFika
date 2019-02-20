@@ -1,4 +1,4 @@
-package client;
+﻿package client;
 import java.awt.*;
 
 import javax.swing.*;
@@ -181,6 +181,7 @@ public class Gui extends JFrame{
 				requestTextArea.setOpaque(false);
 				requestTextArea.setBackground(new Color(0,0,0,0));
 				
+
 				
 				listOfRequestsPanel.add(requestTextArea);
 				requestPanel.add(jl5);
@@ -306,6 +307,18 @@ public class Gui extends JFrame{
 			
 
 			
+		}
+
+
+
+		public User getCurrUser() {
+			return currUser;
+		}
+
+
+
+		public void setCurrUser(User currUser) {
+			this.currUser = currUser;
 		}
 		
 }

@@ -58,7 +58,7 @@ public class FileHandler {
 		    Vote v = g.getV();
 		    for(User u : users) {
 		    // Saves all users in group into a text file where each variable  is with an "," at the end to seperate them.
-		    	printWriter.printf(u.getID()+ ","+ u.getRating()+","+u.isHasVoted());
+		    	printWriter.printf(u.getID()+ ","+ u.getRating()+","+u.hasVoted());
 		    	printWriter.println();
 		    }
 		    printWriter.println("--VOTE--");
