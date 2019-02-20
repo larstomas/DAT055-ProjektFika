@@ -13,6 +13,8 @@ public class ClientHandler extends Thread implements Observer{
 	Object received = null; 
     Object toreturn; 
     Boolean setGroup = false;
+    User talkingUser;
+    Boolean loggedOn = false;
   
     // Constructor 
     public ClientHandler(Socket s, ObjectInputStream dis, ObjectOutputStream dos, Group gr)  
@@ -26,21 +28,42 @@ public class ClientHandler extends Thread implements Observer{
   
     @Override
     public void run() { 
-
-
+    	
         	try { 
-  
+        		
+        		//Login procedure
+        		while(loggedOn == false){
+        			received = null;
+        			while(received == null){
+        				received = ois.readObject();
+        			}
+        			System.out.print("tar emot " + received.toString());
+        			if(g.findUser((String) received) == null){
+        				oos.flush();
+        				oos.writeObject(0);
+        				System.out.println(false);
+        				
+        			}else{
+        		
+        				this.talkingUser = g.findUser((String) received);
+        				this.loggedOn = true;
+        				oos.writeObject(1);
+        				System.out.println(true);
+        			}
+        		}
+        		received = null;
+        		
         		oos.writeObject(g); 
-
-        			System.out.println("First group set");
+        		System.out.println("First group set");
         		        					                
                 while(received == null){
                 	received = ois.readObject();
                 }
                 
                 if((int)received < 0){
-
+                	
                 }
+                
                 received = null;
                 oos.writeObject(g); 
         		// receive the answer from client 

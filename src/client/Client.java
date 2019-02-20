@@ -37,6 +37,24 @@ public class Client  {
 	     { 
 			ois = new ObjectInputStream(s.getInputStream()); 
 	        oos = new ObjectOutputStream(s.getOutputStream());
+       	 	log = new Login(group);
+       	 	
+       	 	while(!log.isLoggedIn()) {
+       	 			received = null;
+       	 			log.checklogin();
+       	 			oos.writeObject(log.getUserID());
+       	 			System.out.println(" innan received är null");
+       	 			while(received == null){
+       	 				System.out.println("received INANAN MOTAG");
+       	 				received = ois.readObject();
+       	 				System.out.println("received är null");
+       	 			}
+       	 			if((int)received == 1){
+       	 				log.setLoggedIn();
+       	 			}
+       	 		}
+	        received = null;
+	        
 			while(received == null){
 	             
 				received = ois.readObject();
@@ -44,10 +62,7 @@ public class Client  {
 	             
 	             if(received instanceof Group && gui == null){
 	            	 this.group = (Group)received;
-	            	 log = new Login(group);
-	            	 while(!log.isLoggedIn()) {
-	        			log.checklogin();
-	            	 }
+
 	            	 gui = new Gui(group, log.getLogin());
 	                 gui.makeFrame();
 	             } else if(received instanceof Group){
@@ -59,8 +74,8 @@ public class Client  {
 			}     
 	        received = null;
 	             
-	        if(this.gui.getCurrUser().hasVoted()){
-	        	sending = gui.getCurrUser().getVoteValue();
+	        if(false){
+	        	sending = new castingVote(gui.getCurrUser(),gui.getCurrUser().getVoteValue());
 
 	         } else {
 	        	 sending = 0;
