@@ -39,8 +39,7 @@ public class ClientHandler extends Thread implements Observer{
                 }
                 
                 if((int)received < 0){
-                	//setVote
-                	//ChangeGroup
+
                 }
                 received = null;
                 oos.writeObject(g); 

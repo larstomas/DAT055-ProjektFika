@@ -181,7 +181,7 @@ public class Gui extends JFrame{
 				requestTextArea.setOpaque(false);
 				requestTextArea.setBackground(new Color(0,0,0,0));
 				
-				addRequest = new JButton("Lägg till önskemål");
+				//addRequest = new JButton("Lägg till önskemål");
 				
 				listOfRequestsPanel.add(requestTextArea);
 				requestPanel.add(jl5);
