@@ -19,10 +19,15 @@ public class Gui extends JFrame{
 		JMenuItem login;
 		JMenuItem nextFika;
 		JMenuItem help;
+		JMenuItem addRequest;
 		JLabel jl;
 		JLabel jl2;
 		JLabel jl3;
 		JLabel jl4;
+		JLabel jl5;
+		JTextArea requestTextArea; 
+		Dimension d;
+		JPanel listOfRequestsPanel;
 		JPanel queuePanel;
 		JPanel votePanel;
 		JPanel scorePanel;
@@ -30,6 +35,7 @@ public class Gui extends JFrame{
 		JPanel qOrderList;
 		JPanel votingPanel;
 		JPanel scores;
+		JPanel requestPanel;
 		Group group;
 		User currUser;
 		ArrayList<JLabel> queueUsers;
@@ -44,6 +50,7 @@ public class Gui extends JFrame{
 			votingButtons = new ArrayList<>();
 			highScore = new ArrayList<>();
 			userScore = new ArrayList<>();
+			d = new Dimension(1100,200);
 		}	
 		
 		
@@ -54,17 +61,22 @@ public class Gui extends JFrame{
 			makeMenuBar();
 			
 			//MAINWINDOW JPANEL 1,3 GRID
-			jp = new JPanel(new GridLayout(1,3));
+			jp = new JPanel(new GridLayout(1,4));
+			setLocationRelativeTo(null);
+			setPreferredSize(d);
 			
 			//CREATE USER LABELS. SAVED IN queueUsers AND highScoreUsers
 			makeUserLabels();
 			//CREATES QUEUE
 			makeQueue(queueUsers.size());
 			
+			
 			//CREATE VOTING MENU
 			makeVotingMenu();
 			
 			makeHighScore(group.getUsers().size());
+			
+			makeRequests(group.getUsers().size());
 			
 			setSize(1100,500);
 			add(jp);
@@ -149,13 +161,43 @@ public class Gui extends JFrame{
 				
 			}	
 		}
+		
+		private void makeRequests(int noOfUsers) {
+			requestPanel = new JPanel();
+			requestPanel.setLayout(new BoxLayout(requestPanel, BoxLayout.PAGE_AXIS));
+			requestPanel.setBorder(new EtchedBorder());		
+				jl5 = new JLabel("Önskemål", SwingConstants.CENTER);
+				
+				//jl5.setHorizontalAlignment(JLabel.CENTER);
+				jl5.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+				jl5.setBorder(new EtchedBorder());
+			
+				listOfRequestsPanel = new JPanel();
+				listOfRequestsPanel.setLayout(new BoxLayout(listOfRequestsPanel, BoxLayout.PAGE_AXIS));
+				listOfRequestsPanel.setBorder(new EtchedBorder());
+				
+				requestTextArea = new JTextArea("Något med grädde\nNågot med nötter");
+				requestTextArea.setEditable(false);
+				requestTextArea.setOpaque(false);
+				requestTextArea.setBackground(new Color(0,0,0,0));
+				
+				addRequest = new JButton("Lägg till önskemål");
+				
+				listOfRequestsPanel.add(requestTextArea);
+				requestPanel.add(jl5);
+				requestPanel.add(listOfRequestsPanel);
+				requestPanel.add(addRequest);
+				jp.add(requestPanel);
+			
+		}
+		
 		//CREATES QUEUE PANEL AND ADDS USERLABELS
 		private void makeQueue(int noOfUsers) {
 			queuePanel = new JPanel();
 			queuePanel.setLayout(new BoxLayout(queuePanel, BoxLayout.PAGE_AXIS));
 			queuePanel.setBorder(new EtchedBorder());		
 				jl = new JLabel("Kölista");
-				jl.setBorder(new EtchedBorder());	
+				jl.setBorder(new EtchedBorder());
 				
 				qOrderPanel = new JPanel();
 				qOrderPanel.setBorder(new EtchedBorder());	
