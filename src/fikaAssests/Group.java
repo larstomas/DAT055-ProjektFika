@@ -11,8 +11,8 @@ public class Group  extends Observable implements Serializable{
 	public Group(){
 		this.users = new ArrayList<User>();  
 		this.v 	   = new Vote();
-		fs = new FikaScore(this.users);
-		q = new Que(this.users);
+		fs = new FikaScore();
+		q = new Que();
 	}
 
 	public ArrayList<User> getUsers() {
@@ -40,6 +40,8 @@ public class Group  extends Observable implements Serializable{
 		u.setHasVoted(hasVoted);
 		u.setRating(rating);
 		users.add(u);
+		fs.addUser(u);
+		q.addUser(u);
 	}
 	public void addUser(String ID) {
 		User u = new User(ID);
@@ -61,22 +63,17 @@ public class Group  extends Observable implements Serializable{
 		}
 	}
 	public void nextFika() {
-		/*v.calcVote();
+		v.calcVote();
 		q.nextUser();
 		v.resetVote(q.getUsers().get(0));
 		resetHasVoted();
 		FileHandler s = new FileHandler(this);
-		s.save();*/
+		s.save();
 		System.out.println("redo för nästa fika");
-		Group fakeGr = new Group();
-		fakeGr.addUser("Tompa", 3, false);
-		fakeGr.addUser("Julle", 3, false);
-		fakeGr.addUser("Alle", 3, false);
-		fakeGr.addUser("Malle", 3, false);
-		fakeGr.addUser("Berra", 3, false);
-		//this = fakeGr;
+
+
 		setChanged();
-		notifyObservers(fakeGr);
+		notifyObservers(this);
 	}
 	public User findUser(String user) {
 		for(User u: users) {

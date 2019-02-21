@@ -6,6 +6,7 @@ public class User implements Serializable{
 	private String ID;
 	private int rating;
 	private boolean hasVoted;
+	private boolean sendVote;
 	private int voteValue;
 	
 	
@@ -23,6 +24,7 @@ public class User implements Serializable{
 		this.ID = name;
 		this.rating = 0;
 		hasVoted = false;
+		sendVote = true;
 	}
 	
 	
@@ -43,6 +45,16 @@ public class User implements Serializable{
 	}
 	public void setHasVoted(boolean hasVoted) {
 		this.hasVoted = hasVoted;
+	}
+
+
+	public boolean isSendVote() {
+		return sendVote;
+	}
+
+
+	public void setSendVote(boolean sendVote) {
+		this.sendVote = sendVote;
 	}
 
 

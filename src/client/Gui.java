@@ -22,6 +22,7 @@ public class Gui extends JFrame{
 		JMenuItem login;
 		JMenuItem help;
 		JMenuItem addRequest;
+		JMenuItem addRefresh;
 		JLabel jl;
 		JLabel jl2;
 		JLabel jl3;
@@ -39,14 +40,16 @@ public class Gui extends JFrame{
 		JPanel requestPanel;
 		Group group;
 		User currUser;
+		Client client;
 		ArrayList<JLabel> queueUsers;
 		ArrayList<JLabel> highScore;
 		ArrayList<JLabel> userScore;
 		ArrayList<JButton> votingButtons;
 		
-		public Gui(Group gr, User currUser){
+		public Gui(Group gr, User currUser, Client c){
 			this.group = gr;
 			this.currUser = currUser;
+			this.client = c;
 			queueUsers = new ArrayList<>();
 			votingButtons = new ArrayList<>();
 			highScore = new ArrayList<>();
@@ -272,6 +275,10 @@ public class Gui extends JFrame{
 			addRequest = new JMenuItem("Lägg till önskemål");
 			fileMenu.add(addRequest);
 			
+			addRefresh = new JMenuItem("Uppdatera");
+			addRefresh.addActionListener(e->this.client.recieveAndSend());
+			fileMenu.add(addRefresh);
+			
 			quit = new JMenuItem("Quit");
 			fileMenu.add(quit);
 			quit.addActionListener(e->quitApp());
@@ -291,8 +298,8 @@ public class Gui extends JFrame{
 		
 		//Changes the labels of Highscore and Queue for the new group
 		public void setNewGroup(Group g){
-			for(int i = 0 ; i < g.getUsers().size() ; i++){
-				queueUsers.get(i).setText(g.getUsers().get(i).getID());
+			for(int i = 0 ; i < g.getQue().getUsers().size() ; i++){
+				queueUsers.get(i).setText(g.getQue().getUsers().get(i).getID());
 			}
 			
 			
@@ -306,13 +313,9 @@ public class Gui extends JFrame{
 			
 		}
 
-
-
 		public User getCurrUser() {
 			return currUser;
 		}
-
-
 
 		public void setCurrUser(User currUser) {
 			this.currUser = currUser;

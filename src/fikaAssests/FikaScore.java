@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class FikaScore implements Serializable{
 	ArrayList<User> users;
-	public FikaScore(ArrayList<User> users) {
-		this.users = users;
+	public FikaScore() {
+		this.users = new ArrayList<User>();
 		
 	}
 	public void sort() {
@@ -21,6 +21,11 @@ public class FikaScore implements Serializable{
 	}
 	public ArrayList<User> getUsers(){
 		return users;
+	}
+	
+	public void addUser(User u){
+		this.users.add(u);
+		this.sort();
 	}
 
 }

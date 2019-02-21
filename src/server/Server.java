@@ -2,11 +2,12 @@ package server;
 import fikaAssests.*;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import java.io.*;
 
 
-public class Server  
-{ 
+public class Server  implements Observer{ 
 	
 	DataInputStream dis;
     DataOutputStream dos;
@@ -20,6 +21,7 @@ public class Server
     	
     	ss = new ServerSocket(5056);
     	gr = new Group();
+    	this.gr.addObserver(this);
     	fl = new FileHandler(gr);
     	fl.load();
     	gr = fl.getG();
@@ -40,10 +42,9 @@ public class Server
                 
                 
                 // create a new thread object 
-                Thread t = new ClientHandler(s, ois, oos, gr);
+                Thread t = new ClientHandler(s, ois, oos, this);
                 System.out.println("Tread öppen");
                 
-                this.gr.addObserver((ClientHandler) t);
                 // Invoking the start() method 
                 t.start();             
                   
@@ -54,15 +55,6 @@ public class Server
         
 	}
     
-    
-    public static void main(String[] args) throws IOException  
-    {
-    	Server s = new Server();
-    	
-    	while(true){
-    		s.listenForClients();
-    	}
-    }
 
 	public Group getGroup() {
 		return gr;
@@ -70,5 +62,12 @@ public class Server
 
 	public void setGroup(Group gr) {
 		this.gr = gr;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		setGroup((Group)arg);
+		
+		
 	} 
 } 

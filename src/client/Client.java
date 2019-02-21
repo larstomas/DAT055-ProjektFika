@@ -18,14 +18,13 @@ public class Client  {
 	Object received = null;
 	Object sending = null;
 	boolean sendVote;
+	User user;
 	
 	public Client(){
 		try{
 			
 	        ip = InetAddress.getByName("localhost"); 
-	        s = new Socket(ip, 5056); 
-	        //ois = new ObjectInputStream(s.getInputStream()); 
-	        //oos = new ObjectOutputStream(s.getOutputStream());
+	        log = new Login(group);
 	        
 		} catch (Exception e){
 			
@@ -35,74 +34,118 @@ public class Client  {
 	public void recieveAndSend(){
 		try
 	     { 
+			//Sätter upp connection med server
+	        s = new Socket(ip, 5056); 
 			ois = new ObjectInputStream(s.getInputStream()); 
 	        oos = new ObjectOutputStream(s.getOutputStream());
-       	 	log = new Login(group);
        	 	
-       	 	while(!log.isLoggedIn()) {
-       	 			received = null;
-       	 			log.checklogin();
-       	 			oos.writeObject(log.getUserID());
-       	 			System.out.println(" innan received är null");
-       	 			while(received == null){
-       	 				System.out.println("received INANAN MOTAG");
-       	 				received = ois.readObject();
-       	 				System.out.println("received är null");
-       	 			}
-       	 			if((int)received == 1){
-       	 				log.setLoggedIn();
-       	 			}
-       	 		}
-	        received = null;
 	        
+	       //Om inte inloggad
+       	 	if(!log.isLoggedIn()){
+       	 		//Be om username tills inloggad
+	       	 	while(!log.isLoggedIn()) {
+	       	 			received = null;
+	       	 			log.checklogin();
+	       	 			
+	       	 			//Skicka username
+	       	 			oos.writeObject(log.getUserID());
+
+	       	 			//Vänta på svar
+	       	 			while(received == null){
+	       	 				received = ois.readObject();
+
+	       	 			}
+	       	 			//Om svar = 1, så finns usern i Group, sätt loggedIn
+	       	 			if((int)received == 1){
+	       	 				log.setLoggedIn();
+	       	 			}
+	       	 		}
+       	 	
+	       	//Om klienten redan är inloggad så skicka user, så tråden vet vem den pratar med 	
+       	 	} else {
+       	 		oos.writeObject(user);
+       	 	}
+	       
+       	 	received = null;
+	        
+	        //Väntar på group
 			while(received == null){
 	             
 				received = ois.readObject();
-				System.out.println("har tagit emot object");
 	             
+				//Om Gui inte gjorts gör Gui och sätt group
 	             if(received instanceof Group && gui == null){
 	            	 this.group = (Group)received;
-
-	            	 gui = new Gui(group, log.getLogin());
-	                 gui.makeFrame();
+	            	 this.user = group.findUser(log.getUserID());
+	            	 gui = new Gui(group, user, this);
+	            	 gui.makeFrame();
+	            	 System.out.println("Client har fått fika");
+	                 
+	             //annars sätt bara group    
 	             } else if(received instanceof Group){
 	            	 System.out.println("Client har fått fika");
 	            	 
 	            	 this.group = (Group)received;
 	            	 gui.setNewGroup(group);
+	            	 this.user = group.findUser(log.getUserID());
 	             }
 			}     
-	        received = null;
+	        
+			received = null;
 	             
-	        if(false){
-	        	sending = new castingVote(gui.getCurrUser(),gui.getCurrUser().getVoteValue());
+	        
+	        this.user.setSendVote(true);
+	        //Skicka eventuell röst, skicka 0 ingen röst gjorts
+	        if(!this.user.hasVoted() && this.user.isSendVote()){
+	        	sending = 5;
+	        	System.out.println("Clieent skickar röst" + sending);
 
 	         } else {
 	        	 sending = 0;
+	        	 System.out.println("Clieent skickar röst" + sending);
+	        	 
 	         } 
 	        oos.writeObject(sending);
+	        System.out.println("Client har skickat röst");
 	        
+	        //Be om ny group innan stänger tråd
 	        while(received == null){
 	             
 				received = ois.readObject();
-				System.out.println("Client har fått fika");
 	            	 
-	            this.group = (Group)received;
-	            gui.setNewGroup(group);
 	             
-			}     
+			}    				
+	        System.out.println("Client har fått fika");
+			System.out.println(received.getClass());
+	        Group temp = (Group)received;
+	        System.out.println(temp.findUser(log.getUserID()).hasVoted());
+	        setGroup(temp);
+            gui.setNewGroup(group);
+            
+            this.user = getGroup().findUser(log.getUserID());
 	        received = null;
 	        
+	        System.out.println(getGroup().findUser(log.getUserID()).getID());
+	        System.out.println(getGroup().findUser(log.getUserID()).hasVoted());
+	        
+	        
 	         // closing resources 
-
 	         ois.close(); 
 	         oos.close(); 
+	         this.s.close();
 	     }catch(Exception e){ 
 	         e.printStackTrace(); 
 	     } 
 		
 	}
+	public void setGroup(Group g){
+		this.group = g;
+		System.out.println("group set");
+	}
 	
+	public Group getGroup(){
+		return this.group;
+	}
 
 	
 } 
