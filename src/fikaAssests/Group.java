@@ -62,10 +62,11 @@ public class Group  extends Observable implements Serializable{
 			return false;
 		}
 	}
+	
 	public void nextFika() {
-		v.calcVote();
+		q.getUsers().get(0).setRating(v.calcVote());
 		q.nextUser();
-		v.resetVote(q.getUsers().get(0));
+		v.resetVote();
 		resetHasVoted();
 		FileHandler s = new FileHandler(this);
 		s.save();

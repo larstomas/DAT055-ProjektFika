@@ -1,7 +1,7 @@
-Alex,10,false
-Mellard,404,false
-Jonatan,1,false
-Julius,211,false
-Tomas,100,false
+Julius,40,false
+Tomas,36,false
+Alex,30,false
+Mellard,55,false
+Jonatan,44,false
 --VOTE--
-Alex,0,0
+0,0

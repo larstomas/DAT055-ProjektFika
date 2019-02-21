@@ -27,7 +27,7 @@ public class FileHandler {
 						Vote v = g.getV();
 						line = reader.readLine();
 						String[] vote = line.split("[,]");
-						v.loadVote(g.findUser(vote[0]),Integer.parseInt(vote[1]),Integer.parseInt(vote[2]));
+						v.loadVote(Integer.parseInt(vote[0]),Integer.parseInt(vote[1]));
 					}else {
 						String[] user = line.split("[,]");
 						// the array of words will be used to create a new user.
@@ -62,7 +62,7 @@ public class FileHandler {
 		    	printWriter.println();
 		    }
 		    printWriter.println("--VOTE--");
-		    printWriter.println(v.getCurrent().getID() + "," + v.getNoOfVotes() + "," + v.getCurrRating());
+		    printWriter.println(v.getNoOfVotes() + "," + v.getCurrRating());
 		    printWriter.close();
 			}
 			catch(IOException e) {

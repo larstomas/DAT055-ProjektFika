@@ -18,6 +18,7 @@ public class Client  {
 	Object received = null;
 	Object sending = null;
 	boolean sendVote;
+	int voteValue;
 	User user;
 	
 	public Client(){
@@ -77,7 +78,7 @@ public class Client  {
 	             if(received instanceof Group && gui == null){
 	            	 this.group = (Group)received;
 	            	 this.user = group.findUser(log.getUserID());
-	            	 gui = new Gui(group, user, this);
+	            	 gui = new Gui(group, this);
 	            	 gui.makeFrame();
 	            	 System.out.println("Client har fått fika");
 	                 
@@ -93,12 +94,15 @@ public class Client  {
 	        
 			received = null;
 	             
-	        
-	        this.user.setSendVote(true);
 	        //Skicka eventuell röst, skicka 0 ingen röst gjorts
-	        if(!this.user.hasVoted() && this.user.isSendVote()){
-	        	sending = 5;
+			
+			System.out.println("this.user.hasVoted() " + this.getUser().hasVoted());
+			System.out.println("this.user.isSendVote() " + this.isSendVote());
+			
+	        if(!this.user.hasVoted() && this.isSendVote()){
+	        	sending = this.getVoteValue();
 	        	System.out.println("Clieent skickar röst" + sending);
+	        	this.setSendVote(false);
 
 	         } else {
 	        	 sending = 0;
@@ -109,14 +113,13 @@ public class Client  {
 	        System.out.println("Client har skickat röst");
 	        
 	        //Be om ny group innan stänger tråd
-	        while(received == null){
-	             
-				received = ois.readObject();
-	            	 
-	             
+	        while(received == null){  
+				received = ois.readObject();	     
 			}    				
 
 	        Group temp = (Group)received;
+	        
+	        
 	        setGroup(temp);
             gui.setNewGroup(group);
             
@@ -128,18 +131,43 @@ public class Client  {
 	         ois.close(); 
 	         oos.close(); 
 	         this.s.close();
+	         
 	     }catch(Exception e){ 
 	         e.printStackTrace(); 
 	     } 
 		
 	}
+	
+	
 	public void setGroup(Group g){
 		this.group = g;
-		System.out.println("group set");
 	}
 	
 	public Group getGroup(){
 		return this.group;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public boolean isSendVote() {
+		return sendVote;
+	}
+
+	public void setSendVote(boolean sendVote) {
+		this.sendVote = sendVote;
+	}
+	public int getVoteValue() {
+		return voteValue;
+	}
+
+	public void setVoteValue(int voteValue) {
+		this.voteValue = voteValue;
 	}
 
 	

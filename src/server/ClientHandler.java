@@ -24,8 +24,6 @@ public class ClientHandler extends Thread{
         this.ois = dis; 
         this.oos = dos; 
         this.server = ser;
-        
-
     } 
   
     @Override
@@ -44,7 +42,7 @@ public class ClientHandler extends Thread{
         				received = ois.readObject();
         			}
         			
-        			System.out.print("tar emot " + received.getClass());
+        			System.out.println("tar emot " + received.getClass());
         			//Om mottaget object är String 
         			if(received instanceof String){
         				
@@ -83,27 +81,28 @@ public class ClientHandler extends Thread{
                 
         		//Vänta på vote
         		while(received == null){
-                	received = ois.readObject();
+                	received = (int)ois.readObject();
                 }
-                
-        		server.getGroup().findUser(talkingUser.getID()).setHasVoted(true);
         		
         		
         		//Om röst är större än 0 sätt rösten för talkingUser i Group-> Vote
-        		
-        		if((int)received < 0){
+        		System.out.println(received.getClass());
+        		if((int)received > 0){
         			
         			server.getGroup().getV().incomingVote((int)received);
         			server.getGroup().findUser(talkingUser.getID()).setHasVoted(true);
         			
                 }
         		
-                System.out.println("Röst mottagen: " + received);
+                
+  
                 received = null;
                 
                 
                 //Send group before closing thread
                 oos.writeObject(server.getGroup()); 
+
+                
      
                 //Close thread
                 this.ois.close(); 

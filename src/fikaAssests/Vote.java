@@ -3,7 +3,6 @@ package fikaAssests;
 import java.io.Serializable;
 
 public class Vote implements Serializable{
-	private User current;
 	private int noOfVotes;
 	private int currRating;
 	
@@ -11,15 +10,6 @@ public class Vote implements Serializable{
 		
 	}
 	
-	
-	
-	
-	public User getCurrent() {
-		return current;
-	}
-	public void setCurrent(User current) {
-		this.current = current;
-	}
 	public int getNoOfVotes() {
 		return noOfVotes;
 	}
@@ -30,25 +20,26 @@ public class Vote implements Serializable{
 		return currRating;
 	}
 	public void incomingVote(int vote) {
+		if(vote!= 0){
 		this.currRating = vote+this.currRating;
 		noOfVotes++;
+		}
 	}
-	public void resetVote(User curr) {
-		this.current = curr;
+	public void resetVote() {
 		this.noOfVotes=0;
 		this.currRating=0;
 	}
-	public void loadVote(User user, int noOfVotes, int currRating) {
-		this.current = user;
+	public void loadVote(int noOfVotes, int currRating) {
 		this.noOfVotes=noOfVotes;
 		this.currRating=currRating;
 	}
-	public void calcVote() {
+	
+	public int calcVote() {
 		if(noOfVotes<=0) {
-			return;
+			return 0;
 		}
-		currRating = currRating/noOfVotes;
-		current.setRating(currRating);
+		return currRating/noOfVotes;
+		
 	}
 
 }

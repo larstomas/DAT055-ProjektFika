@@ -27,6 +27,7 @@ public class Gui extends JFrame{
 		JLabel jl2;
 		JLabel jl3;
 		JLabel jl5;
+		JLabel whosFika;
 		JTextArea requestTextArea; 
 		Dimension d;
 		JPanel listOfRequestsPanel;
@@ -39,16 +40,14 @@ public class Gui extends JFrame{
 		JPanel scores;
 		JPanel requestPanel;
 		Group group;
-		User currUser;
 		Client client;
 		ArrayList<JLabel> queueUsers;
 		ArrayList<JLabel> highScore;
 		ArrayList<JLabel> userScore;
 		ArrayList<JButton> votingButtons;
 		
-		public Gui(Group gr, User currUser, Client c){
+		public Gui(Group gr, Client c){
 			this.group = gr;
-			this.currUser = currUser;
 			this.client = c;
 			queueUsers = new ArrayList<>();
 			votingButtons = new ArrayList<>();
@@ -93,15 +92,12 @@ public class Gui extends JFrame{
 
 
 		private void sendVote(int i) {
-			if(currUser.getID().equals(group.getV().getCurrent().getID())) {
-				System.out.println("Du kan inte rösta på din egen fika!");
-			}else{
-				if(group.sendVote(i, currUser)) {
-					System.out.println("Du gav " + group.getV().getCurrent().getID() + " en: " + i);
-				}else{
-					System.out.println("Du har redan röstat!");
-				}
-			}
+			System.out.println("Sended vote is: "+i);
+			this.client.setSendVote(true);
+			System.out.println("this.user.isSendVote() " + this.client.isSendVote());
+			this.client.setVoteValue(i);
+			this.client.recieveAndSend();
+			setButtons(false);
 		}
 				
 		//CREATES THE PANEL AND LIST FOR HIGHSCORE
@@ -257,8 +253,9 @@ public class Gui extends JFrame{
 			votingPanel = new JPanel(new GridLayout(1,5));
 			votingPanel.setBorder(new EtchedBorder());
 			makeVotingButtons(5);
-				
-			subHeadPanel.add(new JLabel(group.getV().getCurrent().getID()+" fika"));	
+			
+			whosFika = new JLabel(group.getQue().getUsers().get(0).getID()+"s fika");
+			subHeadPanel.add(whosFika);	
 			subHeadPanel.add(votingPanel);
 					
 			votePanel.add(jl2);
@@ -297,7 +294,7 @@ public class Gui extends JFrame{
 		}
 		
 		//Changes the labels of Highscore and Queue for the new group
-		public void setNewGroup(Group g){
+		public void setNewGroup(Group g){		
 			for(int i = 0 ; i < g.getQue().getUsers().size() ; i++){
 				queueUsers.get(i).setText(g.getQue().getUsers().get(i).getID());
 			}
@@ -309,16 +306,20 @@ public class Gui extends JFrame{
 				userScore.get(i).setText(g.getFikaScore().getUsers().get(i).getID());
 			}
 			
-
+			whosFika.setText(g.getQue().getUsers().get(0).getID()+"s fika");
+		
+			if(g.findUser(this.client.getUser().getID()).hasVoted() == false){
+				setButtons(true);
+			}
 			
 		}
 
-		public User getCurrUser() {
-			return currUser;
+		public void setButtons(Boolean bool){
+			for(JButton b : votingButtons){
+				b.setEnabled(bool);
+			}
+			
 		}
 
-		public void setCurrUser(User currUser) {
-			this.currUser = currUser;
-		}
 		
 }
