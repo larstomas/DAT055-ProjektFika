@@ -115,18 +115,13 @@ public class Client  {
 	            	 
 	             
 			}    				
-	        System.out.println("Client har fått fika");
-			System.out.println(received.getClass());
+
 	        Group temp = (Group)received;
-	        System.out.println(temp.findUser(log.getUserID()).hasVoted());
 	        setGroup(temp);
             gui.setNewGroup(group);
             
             this.user = getGroup().findUser(log.getUserID());
 	        received = null;
-	        
-	        System.out.println(getGroup().findUser(log.getUserID()).getID());
-	        System.out.println(getGroup().findUser(log.getUserID()).hasVoted());
 	        
 	        
 	         // closing resources 

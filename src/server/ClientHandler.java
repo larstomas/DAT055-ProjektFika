@@ -78,10 +78,7 @@ public class ClientHandler extends Thread{
         		//Skicka Group till Client
         		oos.writeObject(server.getGroup());
         		oos.reset();
-                System.out.println(server.getGroup().findUser(talkingUser.getID()).getID());
-                System.out.println(server.getGroup().findUser(talkingUser.getID()).hasVoted());
-        		
-        		System.out.println("First group set");
+        		System.out.println("First group sent");
         		        					                
                 
         		//Vänta på vote
@@ -98,17 +95,14 @@ public class ClientHandler extends Thread{
         			
         			server.getGroup().getV().incomingVote((int)received);
         			server.getGroup().findUser(talkingUser.getID()).setHasVoted(true);
-        			System.out.println("Röst mottagen" + received.toString());
+        			
                 }
         		
-                System.out.println("Röst mottagen");
+                System.out.println("Röst mottagen: " + received);
                 received = null;
                 
                 
                 //Send group before closing thread
-                System.out.println(server.getGroup().findUser(talkingUser.getID()).getID());
-                System.out.println(server.getGroup().findUser(talkingUser.getID()).hasVoted());
-
                 oos.writeObject(server.getGroup()); 
      
                 //Close thread
