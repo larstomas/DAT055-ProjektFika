@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 /**
  * Render a GUI for the server
  * 
- * @author Tomas
+ * @author Fika experts
  *
  */
 
@@ -15,7 +15,10 @@ public class ServerGui extends JFrame{
 	JButton exit;
 	JButton next;
 	
-	
+	/**
+	 * GUI constructor
+	 * @param Fika experts
+	 */
 	public ServerGui(Server serv){
 		this.s = serv;
 		this.makeFrame();
