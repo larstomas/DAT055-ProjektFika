@@ -9,16 +9,17 @@ import java.io.*;
 
 public class Server  implements Observer{ 
 	
-	DataInputStream dis;
-    DataOutputStream dos;
-    ServerSocket ss;
-    Socket s;
-    Group gr;
-    FileHandler fl;
+	private ServerSocket ss;
+	private Socket s;
+	private Group gr;
+	private FileHandler fl;
     
     
+	/**
+	 * Server constructor
+	 * @throws IOException
+	 */
     public Server() throws IOException{
-    	
     	ss = new ServerSocket(5056);
     	gr = new Group();
     	this.gr.addObserver(this);
@@ -55,19 +56,27 @@ public class Server  implements Observer{
         
 	}
     
-
+	/**
+	 * Get current group
+	 * @return
+	 */
 	public Group getGroup() {
 		return gr;
 	}
 
-	public void setGroup(Group gr) {
+	/**
+	 * Set current group
+	 * @param gr
+	 */
+	private void setGroup(Group gr) {
 		this.gr = gr;
 	}
 
+	/**
+	 * TODO
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		setGroup((Group)arg);
-		
-		
 	} 
 } 

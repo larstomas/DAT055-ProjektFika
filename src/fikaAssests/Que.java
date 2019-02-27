@@ -3,8 +3,9 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Que implements Serializable{
-	Group g;
-	ArrayList<User> users;
+	private Group g;
+	private ArrayList<User> users;
+	
 	public Que() {
 		this.users = new ArrayList<User>(); 
 	}

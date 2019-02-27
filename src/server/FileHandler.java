@@ -6,14 +6,12 @@ import fikaAssests.Group;
 import fikaAssests.User;
 import fikaAssests.Vote;
 public class FileHandler {
-	Group g;
+	private Group g;
+	
 	public FileHandler(Group g) {
 		this.g = g;
 	}
-	
-	public FileHandler() {	
-	}
-	
+
 	public void load() {
 		try {
 			BufferedReader reader =
@@ -56,7 +54,9 @@ public class FileHandler {
 				}
 	}
 	
-	// Save settings
+	/**
+	 * Save settings
+	 */
 	public void save() {
 		try {
 		    FileWriter fileWriter = new FileWriter("SavedFika.txt");
@@ -82,10 +82,18 @@ public class FileHandler {
 			}
 	}
 
+	/**
+	 * Get server group
+	 * @return
+	 */
 	public Group getG() {
 		return g;
 	}
 
+	/**
+	 * Get server group
+	 * @param g
+	 */
 	public void setG(Group g) {
 		this.g = g;
 	}

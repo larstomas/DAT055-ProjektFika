@@ -14,37 +14,37 @@ import java.util.*;
 
 @SuppressWarnings("serial")
 public class Gui extends JFrame{
-		JPanel jp;
-		JMenu fileMenu;
-		JMenu helpMenu;
-		JMenuBar menubar;
-		JMenuItem quit;
-		JMenuItem login;
-		JMenuItem help;
-		JMenuItem addRequest;
-		JMenuItem addRefresh;
-		JLabel jl;
-		JLabel jl2;
-		JLabel jl3;
-		JLabel jl5;
-		JLabel whosFika;
-		JTextArea requestTextArea; 
-		Dimension d;
-		JPanel listOfRequestsPanel;
-		JPanel queuePanel;
-		JPanel votePanel;
-		JPanel scorePanel;
-		JPanel qOrderPanel;
-		JPanel qOrderList;
-		JPanel votingPanel;
-		JPanel scores;
-		JPanel requestPanel;
-		Group group;
-		Client client;
-		ArrayList<JLabel> queueUsers;
-		ArrayList<JLabel> highScore;
-		ArrayList<JLabel> userScore;
-		ArrayList<JButton> votingButtons;
+		private JPanel jp;
+		private JMenu fileMenu;
+		private JMenu helpMenu;
+		private JMenuBar menubar;
+		private JMenuItem quit;
+		private JMenuItem login;
+		private JMenuItem help;
+		private JMenuItem addRequest;
+		private JMenuItem addRefresh;
+		private JLabel jl;
+		private JLabel jl2;
+		private JLabel jl3;
+		private JLabel jl5;
+		private JLabel whosFika;
+		private JTextArea requestTextArea; 
+		private Dimension d;
+		private JPanel listOfRequestsPanel;
+		private JPanel queuePanel;
+		private JPanel votePanel;
+		private JPanel scorePanel;
+		private JPanel qOrderPanel;
+		private JPanel qOrderList;
+		private JPanel votingPanel;
+		private JPanel scores;
+		private JPanel requestPanel;
+		private Group group;
+		private Client client;
+		private ArrayList<JLabel> queueUsers;
+		private ArrayList<JLabel> highScore;
+		private ArrayList<JLabel> userScore;
+		private ArrayList<JButton> votingButtons;
 		
 		public Gui(Group gr, Client c){
 			this.group = gr;
@@ -54,19 +54,19 @@ public class Gui extends JFrame{
 			highScore = new ArrayList<>();
 			userScore = new ArrayList<>();
 			d = new Dimension(1100,200);
-		}	
+		}
 		
-		
-		
+		/**
+		 * Render Client GUI
+		 * 
+		 */
 		public void makeFrame(){
 
-			
 			//MENUBAR
 			makeMenuBar();
 			
 			//MAINWINDOW JPANEL 1,3 GRID
 			jp = new JPanel(new GridLayout(1,4));
-			
 			
 			setPreferredSize(d);
 			
@@ -75,7 +75,6 @@ public class Gui extends JFrame{
 			//CREATES QUEUE
 			makeQueue(queueUsers.size());
 			
-			
 			//CREATE VOTING MENU
 			makeVotingMenu();
 			
@@ -83,14 +82,15 @@ public class Gui extends JFrame{
 			
 			makeRequests(group.getUsers().size());
 			
-			setSize(1100,500);
 			add(jp);
 			pack();
 			setVisible(true);
-			
 		}
 
-
+		/**
+		 * Send the users vote
+		 * @param i
+		 */
 		private void sendVote(int i) {
 			System.out.println("Sended vote is: "+i);
 			this.client.setSendVote(true);
@@ -100,7 +100,10 @@ public class Gui extends JFrame{
 			setButtons(false);
 		}
 				
-		//CREATES THE PANEL AND LIST FOR HIGHSCORE
+		/**
+		 * CREATES THE PANEL AND LIST FOR HIGHSCORE
+		 * @param nrOfUsers
+		 */
 		private void makeHighScore(int nrOfUsers) {
 			
 			scorePanel = new JPanel();
@@ -128,7 +131,11 @@ public class Gui extends JFrame{
 		}
 		
 		
-		//CREATES POSITIONLABELS FOR HIGH SCORE
+		/**
+		 * CREATES POSITIONLABELS FOR HIGH SCORE
+		 * @param noOfLabels
+		 * @return
+		 */
 		private ArrayList<JLabel> makePositionLabels(int noOfLabels) {
 			ArrayList<JLabel> labels = new ArrayList<>();
 			for(int i = 1; i <= noOfLabels; i++) {
@@ -137,7 +144,10 @@ public class Gui extends JFrame{
 			}			
 			return labels;
 		}
-		//CREATES SCORELABELS FOR HIGHSCORE
+		
+		/**
+		 * CREATES SCORELABELS FOR HIGHSCORE
+		 */
 		private void createHighScore() {
 			group.getFikaScore().sort();
 			JLabel userID;
@@ -155,7 +165,10 @@ public class Gui extends JFrame{
 
 			}
 		}
-		//CREATES USER LABELS
+		
+		/**
+		 * CREATES USER LABELS
+		 */
 		private void makeUserLabels() {
 					
 			for(User u: group.getQue().getUsers()) {
@@ -165,6 +178,10 @@ public class Gui extends JFrame{
 			}	
 		}
 		
+		/**
+		 * CREATES REQUESTPANEL AND TEXTAREA FOR SPECIAL FIKA REQUESTS
+		 * @param noOfUsers
+		 */
 		private void makeRequests(int noOfUsers) {
 			requestPanel = new JPanel();
 			requestPanel.setLayout(new BoxLayout(requestPanel, BoxLayout.PAGE_AXIS));
@@ -201,7 +218,10 @@ public class Gui extends JFrame{
 			
 		}
 		
-		//CREATES QUEUE PANEL AND ADDS USERLABELS
+		/**
+		 * CREATES QUEUE PANEL AND ADDS USERLABELS
+		 * @param noOfUsers
+		 */
 		private void makeQueue(int noOfUsers) {
 			queuePanel = new JPanel();
 			queuePanel.setLayout(new BoxLayout(queuePanel, BoxLayout.PAGE_AXIS));
@@ -232,7 +252,11 @@ public class Gui extends JFrame{
 				queuePanel.add(qOrderPanel);
 				jp.add(queuePanel);
 		}
-		//CREATES VOTING BUTTONS
+		
+		/**
+		 * CREATES VOTING BUTTONS
+		 * @param noOfButtons
+		 */
 		private void makeVotingButtons(int noOfButtons) {
 			for(int i = 0; i < noOfButtons; i++) {
 				final Integer innerMi = new Integer(i+1);
@@ -244,7 +268,10 @@ public class Gui extends JFrame{
 				temp.addActionListener((e) -> {sendVote(innerMi);});
 			}	
 		}
-		//CREATES VOTING MENU
+		
+		/**
+		 * CREATES VOTING MENU
+		 */
 		private void makeVotingMenu() {
 			votePanel = new JPanel();
 			votePanel.setBorder(new EtchedBorder());
@@ -271,7 +298,10 @@ public class Gui extends JFrame{
 			jp.add(votePanel);
 			
 		}
-		//MAKES MENUBAR
+		
+		/**
+		 * MAKES MENUBAR
+		 */
 		private void makeMenuBar() {
 			
 			fileMenu = new JMenu("Menu");
@@ -297,11 +327,18 @@ public class Gui extends JFrame{
 			menubar.add(helpMenu);
 			setJMenuBar(menubar);
 		}
+		
+		/**
+		 * Exit the program
+		 */
 		private void quitApp() {
 			System.exit(0);
 		}
 		
-		//Changes the labels of Highscore and Queue for the new group
+		/**
+		 * Changes the labels of Highscore and Queue for the new group
+		 * @param g
+		 */
 		public void setNewGroup(Group g){		
 			for(int i = 0 ; i < g.getQue().getUsers().size() ; i++){
 				queueUsers.get(i).setText(g.getQue().getUsers().get(i).getID());
@@ -324,6 +361,10 @@ public class Gui extends JFrame{
 			
 		}
 
+		/**
+		 * Enables or disables the voting buttons
+		 * @param bool
+		 */
 		public void setButtons(Boolean bool){
 			for(JButton b : votingButtons){
 				b.setEnabled(bool);
