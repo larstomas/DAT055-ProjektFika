@@ -178,8 +178,15 @@ public class Gui extends JFrame{
 				listOfRequestsPanel = new JPanel();
 				listOfRequestsPanel.setLayout(new BoxLayout(listOfRequestsPanel, BoxLayout.PAGE_AXIS));
 				listOfRequestsPanel.setBorder(new EtchedBorder());
-				
-				requestTextArea = new JTextArea("Något med grädde\nNågot med nötter");
+				if(group.getWishlist().equals("")) {
+					requestTextArea = new JTextArea("Inga önskemål!");
+				}else {
+					requestTextArea = new JTextArea("");
+					for(String s : group.getWishlist()) {
+					requestTextArea.insert(s + " \n", 0);
+					
+					}
+				}
 				requestTextArea.setEditable(false);
 				requestTextArea.setOpaque(false);
 				requestTextArea.setBackground(new Color(0,0,0,0));
@@ -270,6 +277,7 @@ public class Gui extends JFrame{
 			fileMenu = new JMenu("Menu");
 			
 			addRequest = new JMenuItem("Lägg till önskemål");
+			addRequest.addActionListener(e->newRequest());
 			fileMenu.add(addRequest);
 			
 			addRefresh = new JMenuItem("Uppdatera");
@@ -322,6 +330,7 @@ public class Gui extends JFrame{
 			}
 			
 		}
-
+		public void newRequest() {
+		}
 		
 }
