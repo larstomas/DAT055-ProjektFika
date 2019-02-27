@@ -4,9 +4,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class ServerGui extends JFrame{
-	Server s;
-	JButton exit;
-	JButton next;
+	private Server s;
+	private JButton exit;
+	private JButton next;
 	
 	
 	public ServerGui(Server serv){
@@ -27,7 +27,5 @@ public class ServerGui extends JFrame{
 		this.setVisible(true);
 		this.pack();
 	}
-	
-	
 	
 }
