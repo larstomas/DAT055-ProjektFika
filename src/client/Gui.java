@@ -54,8 +54,7 @@ public class Gui extends JFrame{
 			highScore = new ArrayList<>();
 			userScore = new ArrayList<>();
 			d = new Dimension(1100,200);
-		}	
-		
+		}
 		
 		/**
 		 * Render Client GUI
@@ -68,7 +67,6 @@ public class Gui extends JFrame{
 			
 			//MAINWINDOW JPANEL 1,3 GRID
 			jp = new JPanel(new GridLayout(1,4));
-			
 			
 			setPreferredSize(d);
 			
@@ -87,14 +85,12 @@ public class Gui extends JFrame{
 			add(jp);
 			pack();
 			setVisible(true);
-			
 		}
 
 		/**
 		 * Send the users vote
 		 * @param i
 		 */
-
 		private void sendVote(int i) {
 			System.out.println("Sended vote is: "+i);
 			this.client.setSendVote(true);

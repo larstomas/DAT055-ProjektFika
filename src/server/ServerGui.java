@@ -25,7 +25,9 @@ public class ServerGui extends JFrame{
 		
 	}
 
-
+	/**
+	 * Initiate server GUI
+	 */
 	private void makeFrame() {
 		exit = new JButton("Exit");
 		next = new JButton("Next");

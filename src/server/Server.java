@@ -15,8 +15,11 @@ public class Server  implements Observer{
 	private FileHandler fl;
     
     
+	/**
+	 * Server constructor
+	 * @throws IOException
+	 */
     public Server() throws IOException{
-    	
     	ss = new ServerSocket(5056);
     	gr = new Group();
     	this.gr.addObserver(this);
@@ -53,19 +56,27 @@ public class Server  implements Observer{
         
 	}
     
-
+	/**
+	 * Get current group
+	 * @return
+	 */
 	public Group getGroup() {
 		return gr;
 	}
 
+	/**
+	 * Set current group
+	 * @param gr
+	 */
 	private void setGroup(Group gr) {
 		this.gr = gr;
 	}
 
+	/**
+	 * TODO
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		setGroup((Group)arg);
-		
-		
 	} 
 } 
