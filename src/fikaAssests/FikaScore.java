@@ -3,7 +3,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class FikaScore implements Serializable{
-	ArrayList<User> users;
+	private ArrayList<User> users;
+	
 	public FikaScore() {
 		this.users = new ArrayList<User>();
 		
