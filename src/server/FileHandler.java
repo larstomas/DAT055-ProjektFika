@@ -47,7 +47,9 @@ public class FileHandler {
 				}
 	}
 	
-	// Save settings
+	/**
+	 * Save settings
+	 */
 	public void save() {
 		try {
 		    FileWriter fileWriter = new FileWriter("SavedFika.txt");
@@ -69,10 +71,18 @@ public class FileHandler {
 			}
 	}
 
+	/**
+	 * Get server group
+	 * @return
+	 */
 	public Group getG() {
 		return g;
 	}
 
+	/**
+	 * Get server group
+	 * @param g
+	 */
 	public void setG(Group g) {
 		this.g = g;
 	}
