@@ -89,6 +89,7 @@ public class Gui extends JFrame{
 			makeHighScore(group.getUsers().size());
 			
 			makeRequests(group.getUsers().size());
+			setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 			
 			add(jp);
 			pack();
