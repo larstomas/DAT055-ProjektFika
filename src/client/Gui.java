@@ -60,6 +60,7 @@ public class Gui extends JFrame{
 			votingButtons = new ArrayList<>();
 			highScore = new ArrayList<>();
 			userScore = new ArrayList<>();
+			setTitle("FikaQuest: " + client.getUser().getID());
 			d = new Dimension(1100,200);
 		}
 		
@@ -298,7 +299,6 @@ public class Gui extends JFrame{
 			whosFika = new JLabel(group.getQue().getUsers().get(0).getID()+"s fika");
 			subHeadPanel.add(whosFika);	
 			subHeadPanel.add(votingPanel);
-					
 			votePanel.add(jl2);
 			votePanel.add(subHeadPanel);
 			votePanel.add(new JPanel());
