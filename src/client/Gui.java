@@ -90,6 +90,10 @@ public class Gui extends JFrame{
 			
 		}
 
+		/**
+		 * Send the users vote
+		 * @param i
+		 */
 
 		private void sendVote(int i) {
 			System.out.println("Sended vote is: "+i);
@@ -165,7 +169,10 @@ public class Gui extends JFrame{
 
 			}
 		}
-		//CREATES USER LABELS
+		
+		/**
+		 * CREATES USER LABELS
+		 */
 		private void makeUserLabels() {
 					
 			for(User u: group.getQue().getUsers()) {
@@ -174,6 +181,7 @@ public class Gui extends JFrame{
 				
 			}	
 		}
+		
 		/**
 		 * CREATES REQUESTPANEL AND TEXTAREA FOR SPECIAL FIKA REQUESTS
 		 * @param noOfUsers
@@ -241,7 +249,11 @@ public class Gui extends JFrame{
 				queuePanel.add(qOrderPanel);
 				jp.add(queuePanel);
 		}
-		//CREATES VOTING BUTTONS
+		
+		/**
+		 * CREATES VOTING BUTTONS
+		 * @param noOfButtons
+		 */
 		private void makeVotingButtons(int noOfButtons) {
 			for(int i = 0; i < noOfButtons; i++) {
 				final Integer innerMi = new Integer(i+1);
@@ -253,7 +265,10 @@ public class Gui extends JFrame{
 				temp.addActionListener((e) -> {sendVote(innerMi);});
 			}	
 		}
-		//CREATES VOTING MENU
+		
+		/**
+		 * CREATES VOTING MENU
+		 */
 		private void makeVotingMenu() {
 			votePanel = new JPanel();
 			votePanel.setBorder(new EtchedBorder());
@@ -280,7 +295,10 @@ public class Gui extends JFrame{
 			jp.add(votePanel);
 			
 		}
-		//MAKES MENUBAR
+		
+		/**
+		 * MAKES MENUBAR
+		 */
 		private void makeMenuBar() {
 			
 			fileMenu = new JMenu("Menu");
@@ -305,11 +323,18 @@ public class Gui extends JFrame{
 			menubar.add(helpMenu);
 			setJMenuBar(menubar);
 		}
+		
+		/**
+		 * Exit the program
+		 */
 		private void quitApp() {
 			System.exit(0);
 		}
 		
-		//Changes the labels of Highscore and Queue for the new group
+		/**
+		 * Changes the labels of Highscore and Queue for the new group
+		 * @param g
+		 */
 		public void setNewGroup(Group g){		
 			for(int i = 0 ; i < g.getQue().getUsers().size() ; i++){
 				queueUsers.get(i).setText(g.getQue().getUsers().get(i).getID());
@@ -332,6 +357,10 @@ public class Gui extends JFrame{
 			
 		}
 
+		/**
+		 * Enables or disables the voting buttons
+		 * @param bool
+		 */
 		public void setButtons(Boolean bool){
 			for(JButton b : votingButtons){
 				b.setEnabled(bool);
