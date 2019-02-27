@@ -3,6 +3,13 @@ package server;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+/**
+ * Render a GUI for the server
+ * 
+ * @author Tomas
+ *
+ */
+
 public class ServerGui extends JFrame{
 	private Server s;
 	private JButton exit;

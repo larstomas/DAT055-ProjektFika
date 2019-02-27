@@ -2,6 +2,13 @@ package server;
 
 import java.io.IOException;
 
+/**
+ * Initiate server and server GUI
+ * 
+ * @author Tomas
+ *
+ */
+
 public class Main {
 
     public static void main(String[] args) throws IOException  

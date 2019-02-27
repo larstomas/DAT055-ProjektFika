@@ -68,6 +68,7 @@ public class Group  extends Observable implements Serializable{
 		q.nextUser();
 		v.resetVote();
 		resetHasVoted();
+		q.getUsers().get(0).setHasVoted(true);
 		FileHandler s = new FileHandler(this);
 		s.save();
 		System.out.println("redo för nästa fika");

@@ -1,7 +1,7 @@
-Alex,31,false
+Alex,35,true
 Mellard,60,false
 Jonatan,45,false
-Julius,43,false
-Tomas,46,false
+Julius,48,false
+Tomas,50,false
 --VOTE--
 0,0
