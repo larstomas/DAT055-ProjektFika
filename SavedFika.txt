@@ -1,7 +1,10 @@
-Julius,53,false
-Tomas,56,false
-Alex,46,false
-Mellard,70,false
-Jonatan,58,false
+Julius,48,true
+Tomas,50,false
+Alex,35,false
+Mellard,64,false
+Jonatan,50,false
 --VOTE--
 0,0
+--WISHLIST--
+Bullar
+Tårta

@@ -26,6 +26,13 @@ public class FileHandler {
 						line = reader.readLine();
 						String[] vote = line.split("[,]");
 						v.loadVote(Integer.parseInt(vote[0]),Integer.parseInt(vote[1]));
+					}else if(line.equals("--WISHLIST--")){
+						line = reader.readLine();
+						while(line != null) {
+							g.getWishlist().add(line);
+							line = reader.readLine();
+						}
+					
 					}else {
 						String[] user = line.split("[,]");
 						// the array of words will be used to create a new user.
@@ -63,6 +70,10 @@ public class FileHandler {
 		    }
 		    printWriter.println("--VOTE--");
 		    printWriter.println(v.getNoOfVotes() + "," + v.getCurrRating());
+		    printWriter.println("--WISHLIST--");
+		    for(String s: g.getWishlist()) {
+		    	printWriter.println(s);	
+		    }
 		    printWriter.close();
 			}
 			catch(IOException e) {
