@@ -304,9 +304,11 @@ public class Gui extends JFrame{
 			}
 			
 			whosFika.setText(g.getQue().getUsers().get(0).getID()+"s fika");
-		
+			g.getQue().getUsers().get(0).setHasVoted(true);
 			if(g.findUser(this.client.getUser().getID()).hasVoted() == false){
 				setButtons(true);
+			}else {
+				setButtons(false);
 			}
 			
 		}
