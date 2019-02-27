@@ -108,7 +108,7 @@ public class Gui extends JFrame{
 		}
 				
 		/**
-		 * CREATES THE PANEL AND LIST FOR HIGHSCORE
+		 * Creates the panel and list for highscore
 		 * @param nrOfUsers - Number of users in integer
 		 */
 		private void makeHighScore(int nrOfUsers) {
@@ -139,9 +139,11 @@ public class Gui extends JFrame{
 		
 		
 		/**
-		 * CREATES POSITIONLABELS FOR HIGH SCORE
-		 * @param noOfLabels
-		 * @return
+		 * Creates position labels for high score
+		 * 
+		 * @param noOfLabels - Number of Labels in Integer
+		 * 
+		 * @return - ArrayList<JLabel>
 		 */
 		private ArrayList<JLabel> makePositionLabels(int noOfLabels) {
 			ArrayList<JLabel> labels = new ArrayList<>();
@@ -153,7 +155,7 @@ public class Gui extends JFrame{
 		}
 		
 		/**
-		 * CREATES SCORELABELS FOR HIGHSCORE
+		 * Creates scorelabels for highscore
 		 */
 		private void createHighScore() {
 			group.getFikaScore().sort();
@@ -174,7 +176,7 @@ public class Gui extends JFrame{
 		}
 		
 		/**
-		 * CREATES USER LABELS
+		 * Creates user labels
 		 */
 		private void makeUserLabels() {
 					
@@ -186,8 +188,9 @@ public class Gui extends JFrame{
 		}
 		
 		/**
-		 * CREATES REQUESTPANEL AND TEXTAREA FOR SPECIAL FIKA REQUESTS
-		 * @param noOfUsers
+		 * Creates requestpanel and textarea for special fika requests
+		 * 
+		 * @param noOfUsers - Number of users in Integer
 		 */
 		private void makeRequests(int noOfUsers) {
 			requestPanel = new JPanel();
@@ -226,8 +229,9 @@ public class Gui extends JFrame{
 		}
 		
 		/**
-		 * CREATES QUEUE PANEL AND ADDS USERLABELS
-		 * @param noOfUsers
+		 * Creates queue panel and adds user labels
+		 * 
+		 * @param noOfUsers - Number of users in Integer
 		 */
 		private void makeQueue(int noOfUsers) {
 			queuePanel = new JPanel();
@@ -261,8 +265,9 @@ public class Gui extends JFrame{
 		}
 		
 		/**
-		 * CREATES VOTING BUTTONS
-		 * @param noOfButtons
+		 * Creates voting buttons
+		 * 
+		 * @param noOfButtons - Number of buttons in Integer
 		 */
 		private void makeVotingButtons(int noOfButtons) {
 			for(int i = 0; i < noOfButtons; i++) {
@@ -277,7 +282,7 @@ public class Gui extends JFrame{
 		}
 		
 		/**
-		 * CREATES VOTING MENU
+		 * Creates voting menu
 		 */
 		private void makeVotingMenu() {
 			votePanel = new JPanel();
@@ -307,7 +312,7 @@ public class Gui extends JFrame{
 		}
 		
 		/**
-		 * MAKES MENUBAR
+		 * Makes menubar
 		 */
 		private void makeMenuBar() {
 			
@@ -344,7 +349,7 @@ public class Gui extends JFrame{
 		
 		/**
 		 * Changes the labels of Highscore and Queue for the new group
-		 * @param g
+		 * @param g - A group obrect
 		 */
 		public void setNewGroup(Group g){		
 			for(int i = 0 ; i < g.getQue().getUsers().size() ; i++){
@@ -370,7 +375,7 @@ public class Gui extends JFrame{
 
 		/**
 		 * Enables or disables the voting buttons
-		 * @param bool
+		 * @param bool - for enabling or disabling buttons
 		 */
 		public void setButtons(Boolean bool){
 			for(JButton b : votingButtons){
@@ -378,6 +383,8 @@ public class Gui extends JFrame{
 			}
 			
 		}
+		
+		
 		public void newRequest() {
 		}
 		
