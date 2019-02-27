@@ -24,6 +24,9 @@ public class Client  {
 	private int voteValue;
 	private User user;
 	
+	/**
+	 * Constructor for the Client
+	 */
 	public Client(){
 		try{
 			
