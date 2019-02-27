@@ -160,7 +160,7 @@ public class Client  {
        	 			if((int)received == 1){
        	 				log.setLoggedIn();
        	 			} else
-       	 				JOptionPane.showMessageDialog(null, "User not found");
+       	 				JOptionPane.showMessageDialog(null, "User not found, try again");
        	 		}
    	 	
        	//Om klienten redan är inloggad så skicka user, så tråden vet vem den pratar med 	
