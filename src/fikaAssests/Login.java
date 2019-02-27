@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class Login implements Serializable{
-    Group gr;
-    String userID; 
-    User currUser;
-    boolean loggedin = false;
+    private Group gr;
+    private String userID; 
+    private User currUser;
+    private boolean loggedin = false;
+    
     public Login(Group gr) {
     	this.gr = gr;    	
     }

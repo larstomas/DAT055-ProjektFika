@@ -11,9 +11,9 @@ import javax.swing.JFrame;
  */
 
 public class ServerGui extends JFrame{
-	Server s;
-	JButton exit;
-	JButton next;
+	private Server s;
+	private JButton exit;
+	private JButton next;
 	
 	/**
 	 * GUI constructor
@@ -37,7 +37,5 @@ public class ServerGui extends JFrame{
 		this.setVisible(true);
 		this.pack();
 	}
-	
-	
 	
 }

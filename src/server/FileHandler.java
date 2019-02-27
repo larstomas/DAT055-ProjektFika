@@ -6,14 +6,12 @@ import fikaAssests.Group;
 import fikaAssests.User;
 import fikaAssests.Vote;
 public class FileHandler {
-	Group g;
+	private Group g;
+	
 	public FileHandler(Group g) {
 		this.g = g;
 	}
-	
-	public FileHandler() {	
-	}
-	
+
 	public void load() {
 		try {
 			BufferedReader reader =

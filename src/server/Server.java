@@ -9,12 +9,10 @@ import java.io.*;
 
 public class Server  implements Observer{ 
 	
-	DataInputStream dis;
-    DataOutputStream dos;
-    ServerSocket ss;
-    Socket s;
-    Group gr;
-    FileHandler fl;
+	private ServerSocket ss;
+	private Socket s;
+	private Group gr;
+	private FileHandler fl;
     
     
     public Server() throws IOException{
@@ -60,7 +58,7 @@ public class Server  implements Observer{
 		return gr;
 	}
 
-	public void setGroup(Group gr) {
+	private void setGroup(Group gr) {
 		this.gr = gr;
 	}
 

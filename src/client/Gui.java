@@ -14,37 +14,37 @@ import java.util.*;
 
 @SuppressWarnings("serial")
 public class Gui extends JFrame{
-		JPanel jp;
-		JMenu fileMenu;
-		JMenu helpMenu;
-		JMenuBar menubar;
-		JMenuItem quit;
-		JMenuItem login;
-		JMenuItem help;
-		JMenuItem addRequest;
-		JMenuItem addRefresh;
-		JLabel jl;
-		JLabel jl2;
-		JLabel jl3;
-		JLabel jl5;
-		JLabel whosFika;
-		JTextArea requestTextArea; 
-		Dimension d;
-		JPanel listOfRequestsPanel;
-		JPanel queuePanel;
-		JPanel votePanel;
-		JPanel scorePanel;
-		JPanel qOrderPanel;
-		JPanel qOrderList;
-		JPanel votingPanel;
-		JPanel scores;
-		JPanel requestPanel;
-		Group group;
-		Client client;
-		ArrayList<JLabel> queueUsers;
-		ArrayList<JLabel> highScore;
-		ArrayList<JLabel> userScore;
-		ArrayList<JButton> votingButtons;
+		private JPanel jp;
+		private JMenu fileMenu;
+		private JMenu helpMenu;
+		private JMenuBar menubar;
+		private JMenuItem quit;
+		private JMenuItem login;
+		private JMenuItem help;
+		private JMenuItem addRequest;
+		private JMenuItem addRefresh;
+		private JLabel jl;
+		private JLabel jl2;
+		private JLabel jl3;
+		private JLabel jl5;
+		private JLabel whosFika;
+		private JTextArea requestTextArea; 
+		private Dimension d;
+		private JPanel listOfRequestsPanel;
+		private JPanel queuePanel;
+		private JPanel votePanel;
+		private JPanel scorePanel;
+		private JPanel qOrderPanel;
+		private JPanel qOrderList;
+		private JPanel votingPanel;
+		private JPanel scores;
+		private JPanel requestPanel;
+		private Group group;
+		private Client client;
+		private ArrayList<JLabel> queueUsers;
+		private ArrayList<JLabel> highScore;
+		private ArrayList<JLabel> userScore;
+		private ArrayList<JButton> votingButtons;
 		
 		public Gui(Group gr, Client c){
 			this.group = gr;
@@ -60,7 +60,6 @@ public class Gui extends JFrame{
 		
 		public void makeFrame(){
 
-			
 			//MENUBAR
 			makeMenuBar();
 			
@@ -75,7 +74,6 @@ public class Gui extends JFrame{
 			//CREATES QUEUE
 			makeQueue(queueUsers.size());
 			
-			
 			//CREATE VOTING MENU
 			makeVotingMenu();
 			
@@ -83,7 +81,6 @@ public class Gui extends JFrame{
 			
 			makeRequests(group.getUsers().size());
 			
-			setSize(1100,500);
 			add(jp);
 			pack();
 			setVisible(true);
@@ -164,7 +161,7 @@ public class Gui extends JFrame{
 				
 			}	
 		}
-		
+		//CREATES REQUESTPANEL AND TEXTAREA FOR SPECIAL FIKA REQUESTS
 		private void makeRequests(int noOfUsers) {
 			requestPanel = new JPanel();
 			requestPanel.setLayout(new BoxLayout(requestPanel, BoxLayout.PAGE_AXIS));
@@ -179,7 +176,7 @@ public class Gui extends JFrame{
 				listOfRequestsPanel.setLayout(new BoxLayout(listOfRequestsPanel, BoxLayout.PAGE_AXIS));
 				listOfRequestsPanel.setBorder(new EtchedBorder());
 				
-				requestTextArea = new JTextArea("Något med grädde\nNågot med nötter");
+				requestTextArea = new JTextArea("Inga önskemål ännu");
 				requestTextArea.setEditable(false);
 				requestTextArea.setOpaque(false);
 				requestTextArea.setBackground(new Color(0,0,0,0));
