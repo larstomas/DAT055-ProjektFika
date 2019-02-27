@@ -35,20 +35,22 @@ public class Client  {
 		}
 	}
 	
+	/**
+	 * Handles the communications with the server
+	 */
 	public void recieveAndSend(){
 		try { 
-			//Sätter upp connection med server
+			//Sets up a connection with server
 	        s = new Socket(ip, 5056); 
 			ois = new ObjectInputStream(s.getInputStream()); 
 	        oos = new ObjectOutputStream(s.getOutputStream());
 	        
-	        //Hantera Login
+	        //Handles Login
 	        checkForLogin();
 	       
-	        //FrågraServerOmGrupp
+	        //Ask Server about Group
 	        askForGroup();
 	             
-	        //Skicka eventuell röst, skicka 0 ingen röst gjorts
 			postVote();
 
 	        //Be om ny group innan stänger tråd
@@ -65,7 +67,10 @@ public class Client  {
 		
 	}
 	
-	
+	/**
+	 * Skicka eventuell röst, skicka 0 ingen röst gjorts
+	 * Sends vote 
+	 */
 	private void postVote() {
         if(!this.user.hasVoted() && this.isSendVote()){
         	sending = this.getVoteValue();
