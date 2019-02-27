@@ -3,6 +3,9 @@ package client;
 import fikaAssests.*;
 import java.net.*;
 import java.util.*;
+
+import javax.swing.JOptionPane;
+
 import java.io.*;
 
 
@@ -130,6 +133,7 @@ public class Client  {
        	 			received = null;
        	 			log.checklogin();
        	 			
+       	 			
        	 			//Skicka username
        	 			try {
 						oos.writeObject(log.getUserID());
@@ -140,6 +144,7 @@ public class Client  {
 
        	 			//Vänta på svar
        	 			while(received == null){
+       	 				
        	 				try {
 							received = ois.readObject();
 						} catch (ClassNotFoundException e) {
@@ -154,7 +159,8 @@ public class Client  {
        	 			//Om svar = 1, så finns usern i Group, sätt loggedIn
        	 			if((int)received == 1){
        	 				log.setLoggedIn();
-       	 			}
+       	 			} else
+       	 				JOptionPane.showMessageDialog(null, "User not found, try again");
        	 		}
    	 	
        	//Om klienten redan är inloggad så skicka user, så tråden vet vem den pratar med 	
