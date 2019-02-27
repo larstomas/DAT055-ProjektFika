@@ -46,6 +46,13 @@ public class Gui extends JFrame{
 		private ArrayList<JLabel> userScore;
 		private ArrayList<JButton> votingButtons;
 		
+		/**
+		 * GUI constructor
+		 * 
+		 * @param gr - Group object
+		 * @param c - Client object
+		 * 
+		 */
 		public Gui(Group gr, Client c){
 			this.group = gr;
 			this.client = c;
@@ -89,7 +96,7 @@ public class Gui extends JFrame{
 
 		/**
 		 * Send the users vote
-		 * @param i
+		 * @param i - The vote in integer from 1 to 5
 		 */
 		private void sendVote(int i) {
 			System.out.println("Sended vote is: "+i);
@@ -102,7 +109,7 @@ public class Gui extends JFrame{
 				
 		/**
 		 * CREATES THE PANEL AND LIST FOR HIGHSCORE
-		 * @param nrOfUsers
+		 * @param nrOfUsers - Number of users in integer
 		 */
 		private void makeHighScore(int nrOfUsers) {
 			

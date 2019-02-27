@@ -36,18 +36,17 @@ public class Client  {
 	}
 	
 	public void recieveAndSend(){
-		try
-	     { 
+		try { 
 			//Sätter upp connection med server
 	        s = new Socket(ip, 5056); 
 			ois = new ObjectInputStream(s.getInputStream()); 
 	        oos = new ObjectOutputStream(s.getOutputStream());
-       	 	
-	       //Hantera Login
-	       checkForLogin();
+	        
+	        //Hantera Login
+	        checkForLogin();
 	       
-	       //FrågraServerOmGrupp
-	       askForGroup();
+	        //FrågraServerOmGrupp
+	        askForGroup();
 	             
 	        //Skicka eventuell röst, skicka 0 ingen röst gjorts
 			postVote();
@@ -55,13 +54,13 @@ public class Client  {
 	        //Be om ny group innan stänger tråd
 			askForGroup();	        
 	        
-	         //Stäng Resurser
-	         ois.close(); 
-	         oos.close(); 
-	         this.s.close();
+	        //Stäng Resurser
+	        ois.close(); 
+	        oos.close(); 
+	        this.s.close();
 	         
-	     }catch(Exception e){ 
-	         e.printStackTrace(); 
+	     } catch(Exception e) { 
+	    	 e.printStackTrace(); 
 	     } 
 		
 	}
