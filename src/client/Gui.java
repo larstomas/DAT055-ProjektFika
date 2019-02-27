@@ -57,7 +57,10 @@ public class Gui extends JFrame{
 		}	
 		
 		
-		
+		/**
+		 * Render Client GUI
+		 * 
+		 */
 		public void makeFrame(){
 
 			//MENUBAR
@@ -97,7 +100,10 @@ public class Gui extends JFrame{
 			setButtons(false);
 		}
 				
-		//CREATES THE PANEL AND LIST FOR HIGHSCORE
+		/**
+		 * CREATES THE PANEL AND LIST FOR HIGHSCORE
+		 * @param nrOfUsers
+		 */
 		private void makeHighScore(int nrOfUsers) {
 			
 			scorePanel = new JPanel();
@@ -125,7 +131,11 @@ public class Gui extends JFrame{
 		}
 		
 		
-		//CREATES POSITIONLABELS FOR HIGH SCORE
+		/**
+		 * CREATES POSITIONLABELS FOR HIGH SCORE
+		 * @param noOfLabels
+		 * @return
+		 */
 		private ArrayList<JLabel> makePositionLabels(int noOfLabels) {
 			ArrayList<JLabel> labels = new ArrayList<>();
 			for(int i = 1; i <= noOfLabels; i++) {
@@ -134,7 +144,10 @@ public class Gui extends JFrame{
 			}			
 			return labels;
 		}
-		//CREATES SCORELABELS FOR HIGHSCORE
+		
+		/**
+		 * CREATES SCORELABELS FOR HIGHSCORE
+		 */
 		private void createHighScore() {
 			group.getFikaScore().sort();
 			JLabel userID;
@@ -161,7 +174,10 @@ public class Gui extends JFrame{
 				
 			}	
 		}
-		//CREATES REQUESTPANEL AND TEXTAREA FOR SPECIAL FIKA REQUESTS
+		/**
+		 * CREATES REQUESTPANEL AND TEXTAREA FOR SPECIAL FIKA REQUESTS
+		 * @param noOfUsers
+		 */
 		private void makeRequests(int noOfUsers) {
 			requestPanel = new JPanel();
 			requestPanel.setLayout(new BoxLayout(requestPanel, BoxLayout.PAGE_AXIS));
@@ -191,7 +207,10 @@ public class Gui extends JFrame{
 			
 		}
 		
-		//CREATES QUEUE PANEL AND ADDS USERLABELS
+		/**
+		 * CREATES QUEUE PANEL AND ADDS USERLABELS
+		 * @param noOfUsers
+		 */
 		private void makeQueue(int noOfUsers) {
 			queuePanel = new JPanel();
 			queuePanel.setLayout(new BoxLayout(queuePanel, BoxLayout.PAGE_AXIS));
