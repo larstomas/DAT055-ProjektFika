@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 
 public class ServerGui extends JFrame{
 	private Server s;
-	private JButton exit;
 	private JButton next;
 	
 	/**
@@ -29,13 +28,12 @@ public class ServerGui extends JFrame{
 	 * Initiate server GUI
 	 */
 	private void makeFrame() {
-		exit = new JButton("Exit");
+		
 		next = new JButton("Next");
-		//exit.addActionListener(e->);
 		next.addActionListener(e->this.s.getGroup().nextFika());
 		
-		this.add(exit);
 		this.add(next);
+		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		this.setVisible(true);
 		this.pack();
 	}
