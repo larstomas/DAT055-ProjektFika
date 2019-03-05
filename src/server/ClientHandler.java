@@ -118,11 +118,6 @@ public class ClientHandler extends Thread{
     			if(server.getGroup().findUser((String) received) == null){
     				try {
 						oos.flush();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-    				try {
 						oos.writeObject(0);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -137,16 +132,12 @@ public class ClientHandler extends Thread{
     				this.loggedOn = true;
     				try {
 						oos.flush();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-    				try {
 						oos.writeObject(1);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+
     				System.out.println(true);
     			}
     			
