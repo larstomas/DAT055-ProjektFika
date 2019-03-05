@@ -40,6 +40,7 @@ public class FikaScore implements Serializable{
 			}
 		}
 	}
+	
 	/**
 	 *  Returns the ArrayList Users
 	 *  
