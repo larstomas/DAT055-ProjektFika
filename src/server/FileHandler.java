@@ -10,7 +10,7 @@ import fikaAssests.Vote;
  * Changes that are made are saved in SavedFika.txt when the server goes offline.
  * When the server goes online SavedFika.txt is loaded.
  * 
- * @author Grupp 4
+ * @author Group 4
  * @version 0.6
  */
 public class FileHandler {

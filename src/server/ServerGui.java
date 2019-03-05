@@ -6,7 +6,8 @@ import javax.swing.JFrame;
 /**
  * Render a GUI for the server
  * 
- * @author Fika experts
+ * @author Group 4
+ * @version 0.6
  *
  */
 

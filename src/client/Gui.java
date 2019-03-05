@@ -122,8 +122,6 @@ public class Gui extends JFrame{
 				jl3 = new JLabel("Fikascore");
 				jl3.setBorder(new EtchedBorder());
 				scores = new JPanel(new GridLayout(nrOfUsers,3));
-				scores.setBorder(new EtchedBorder());
-				
 				
 				createHighScore();
 				for(int i = 0; i < nrOfUsers; i++) {

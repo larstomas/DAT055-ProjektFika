@@ -2,8 +2,7 @@ package server;
 import fikaAssests.*;
 import java.io.*;
 import java.net.*;
-import java.util.Observable;
-import java.util.Observer;
+
 
 /**
  * ClientHandler establishes communication between a Client and Server.
