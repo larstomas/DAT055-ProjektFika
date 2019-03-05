@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.Timer;
 import javax.swing.border.*;
 
 import fikaAssests.Group;
@@ -19,7 +20,6 @@ public class Gui extends JFrame{
 		private JMenu helpMenu;
 		private JMenuBar menubar;
 		private JMenuItem quit;
-		private JMenuItem login;
 		private JMenuItem help;
 		private JMenuItem addRequest;
 		private JMenuItem addRefresh;
@@ -62,6 +62,8 @@ public class Gui extends JFrame{
 			userScore = new ArrayList<>();
 			setTitle("FikaQuest: " + client.getUser().getID());
 			d = new Dimension(1100,200);
+			Timer timer = new Timer(1000, e->this.client.recieveAndSend());
+	        timer.start();
 		}
 		
 		/**
