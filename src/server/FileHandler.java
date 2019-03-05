@@ -7,7 +7,7 @@ import fikaAssests.User;
 import fikaAssests.Vote;
 public class FileHandler {
 	private Group g;
-
+	
 	public FileHandler(Group g) {
 		this.g = g;
 	}
@@ -15,8 +15,8 @@ public class FileHandler {
 	public void load() {
 		try {
 			BufferedReader reader =
-					new BufferedReader(
-							new FileReader("SavedFika.txt"));
+			new BufferedReader(
+			new FileReader("SavedFika.txt"));
 			String line = reader.readLine();
 			while(line != null) {
 				//Splits the text line where "," is present and each word will be stored in an array
@@ -32,7 +32,7 @@ public class FileHandler {
 							g.getWishlist().add(line);
 							line = reader.readLine();
 						}
-
+					
 					}else {
 						String[] user = line.split("[,]");
 						// the array of words will be used to create a new user.
@@ -41,45 +41,45 @@ public class FileHandler {
 				}
 				line = reader.readLine();
 			}
-
+			
 			reader.close();
-		}
-		catch(FileNotFoundException e) {
-			System.out.println("File not found. Make sure SavedFika.txt is in folder or outside the source folder! Exiting now!");
-			System.exit(0);
-		}
-		catch(IOException e) {
-			System.out.println("Something went wrong while reading file! Make sure SavedFika is not empty! Exiting now!");
-			System.exit(0);
-		}
+			}
+			catch(FileNotFoundException e) {
+				System.out.println("File not found. Make sure SavedFika.txt is in folder or outside the source folder! Exiting now!");
+				System.exit(0);
+			}
+			catch(IOException e) {
+				System.out.println("Something went wrong while reading file! Make sure SavedFika is not empty! Exiting now!");
+				System.exit(0);
+				}
 	}
-
+	
 	/**
 	 * Save settings
 	 */
 	public void save() {
 		try {
-			FileWriter fileWriter = new FileWriter("SavedFika.txt");
-			PrintWriter printWriter = new PrintWriter(fileWriter);
-			ArrayList<User> users = g.getQue().getUsers();
-			Vote v = g.getV();
-			for(User u : users) {
-				// Saves all users in group into a text file where each variable  is with an "," at the end to seperate them.
-				printWriter.printf(u.getID()+ ","+ u.getRating()+","+u.hasVoted());
-				printWriter.println();
+		    FileWriter fileWriter = new FileWriter("SavedFika.txt");
+		    PrintWriter printWriter = new PrintWriter(fileWriter);
+		    ArrayList<User> users = g.getQue().getUsers();
+		    Vote v = g.getV();
+		    for(User u : users) {
+		    // Saves all users in group into a text file where each variable  is with an "," at the end to seperate them.
+		    	printWriter.printf(u.getID()+ ","+ u.getRating()+","+u.hasVoted());
+		    	printWriter.println();
+		    }
+		    printWriter.println("--VOTE--");
+		    printWriter.println(v.getNoOfVotes() + "," + v.getCurrRating());
+		    printWriter.println("--WISHLIST--");
+		    for(String s: g.getWishlist()) {
+		    	printWriter.println(s);	
+		    }
+		    printWriter.close();
 			}
-			printWriter.println("--VOTE--");
-			printWriter.println(v.getNoOfVotes() + "," + v.getCurrRating());
-			printWriter.println("--WISHLIST--");
-			for(String s: g.getWishlist()) {
-				printWriter.println(s);	
+			catch(IOException e) {
+				System.out.println("Something went wrong while saving! Exiting now!");
+				System.exit(0);
 			}
-			printWriter.close();
-		}
-		catch(IOException e) {
-			System.out.println("Something went wrong while saving! Exiting now!");
-			System.exit(0);
-		}
 	}
 
 	/**

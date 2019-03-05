@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 public class ServerGui extends JFrame{
 	private Server s;
 	private JButton next;
-
+	
 	/**
 	 * GUI constructor
 	 * @param Fika experts
@@ -21,22 +21,22 @@ public class ServerGui extends JFrame{
 	public ServerGui(Server serv){
 		this.s = serv;
 		this.makeFrame();
-
+		
 	}
 
 	/**
 	 * Initiate server GUI
 	 */
 	private void makeFrame() {
-
+		
 		next = new JButton("Next");
 		next.addActionListener(e->this.s.getGroup().nextFika());
-
+		
 
 		this.add(next);
 		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		this.setVisible(true);
 		this.pack();
 	}
-
+	
 }
