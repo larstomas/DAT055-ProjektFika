@@ -32,6 +32,7 @@ public class ServerGui extends JFrame{
 		next = new JButton("Next");
 		next.addActionListener(e->this.s.getGroup().nextFika());
 		
+
 		this.add(next);
 		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		this.setVisible(true);
