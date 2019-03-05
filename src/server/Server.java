@@ -6,6 +6,16 @@ import java.util.Observable;
 import java.util.Observer;
 import java.io.*;
 
+/**
+ * Server listens for clients trying to connect to the server.
+ * For every client a ClientHandler object is created which sends objects regarding information 
+ * of the group between the ClientHandler and Client. 
+ * 
+ * @author Group 4
+ * @version 0.6
+ *
+ */
+
 
 public class Server  implements Observer{ 
 	
@@ -28,6 +38,11 @@ public class Server  implements Observer{
     	gr = fl.getG();
     }
 	
+    /**
+     * Listens for clients trying to connect to the server.
+     * Creates a Thread for each client trying to connect.
+     * @throws IOException
+     */
 	public void listenForClients() throws IOException{
             try { 
                 // socket object to receive incoming client requests 
@@ -58,14 +73,14 @@ public class Server  implements Observer{
     
 	/**
 	 * Get current group
-	 * @return
+	 * @return - The current group handled by the server
 	 */
 	public Group getGroup() {
 		return gr;
 	}
 
 	/**
-	 * Set current group
+	 * Sets the group 
 	 * @param gr
 	 */
 	private void setGroup(Group gr) {
@@ -73,7 +88,7 @@ public class Server  implements Observer{
 	}
 
 	/**
-	 * TODO
+	 * When notified, updates the Group handled by the server to the most recently updated one.
 	 */
 	@Override
 	public void update(Observable o, Object arg) {

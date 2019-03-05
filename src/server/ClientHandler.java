@@ -5,6 +5,15 @@ import java.net.*;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * ClientHandler establishes communication between a Client and Server.
+ * ClientHandler sends information regarding a Group to the Server so that the server
+ * always is updated with the most recent version of the Group.
+ * 
+ * @author Group 4
+ * @version 0.6
+ */
+
 public class ClientHandler extends Thread{ 
     final ObjectInputStream ois; 
     final ObjectOutputStream oos; 
@@ -17,7 +26,13 @@ public class ClientHandler extends Thread{
     Boolean loggedOn = false;
     Server server;
   
-    // Constructor 
+    /**
+     * Creates a ClientHandler object.
+     * @param s - establishes a way of communication to a client
+     * @param dis - InputStream to receive information from a client
+     * @param dos - OutputSteram to send information to a client
+     * @param ser - the server that handles the group
+     */
     public ClientHandler(Socket s, ObjectInputStream dis, ObjectOutputStream dos, Server ser)  
     { 
         this.s = s; 
@@ -26,6 +41,12 @@ public class ClientHandler extends Thread{
         this.server = ser;
     } 
   
+    /**
+     * Executes the protocol for communication with a client.
+     * Handles login then sends the most recent Group to the client.
+     * Receives eventual vote and sends the most recent Group to the client.
+     * Closes the stream.
+     */
     @Override
     public void run() { 
     	
@@ -63,24 +84,26 @@ public class ClientHandler extends Thread{
         
 
 
-
-    
-
-	private void handleVote() {
-		//Vänta på vote
+	/**
+	 * Waits for a client to vote.
+	 * When a vote is received from a client it updates the amount and sum of all votes cast.
+	 * Finally it records that the Client voting has voted.
+	 */
+    private void handleVote() {
+		//Wait for vote
 		while(received == null){
         	try {
 				received = (int)ois.readObject();
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
         }
 		
-		//Om röst är större än 0 sätt rösten för talkingUser i Group-> Vote
+		//If vote is greater than 0, set vote for talkingUser.
 		System.out.println(received.getClass());
 		if((int)received > 0){
 			
@@ -91,41 +114,45 @@ public class ClientHandler extends Thread{
         received = null;
 		
 	}
-
+	
+	/**
+	 * Checks whether a client is logged in and however a client trying to log in 
+	 * exists in the actual Group.
+	 * 
+	 */
 	private void handleLogin() {
-		//Sålänge någon inte är inloggad på tråden
+		//As long as anyone isn't logged in.
 		while(loggedOn == false){
 			received = null;
 			
-			//Ta emot objekt
+			//Receive object
 			while(received == null){
 				try {
 					received = ois.readObject();
 				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 			}
 			
 			System.out.println("tar emot " + received.getClass());
-			//Om mottaget object är String 
+			//If receibed object is of type String
 			if(received instanceof String){
 				
-				//Och Stringen inte finns som User i Group skicka 0
+				//If the string doesn't exist as a User in Group, send 0
     			if(server.getGroup().findUser((String) received) == null){
     				try {
 						oos.flush();
 						oos.writeObject(0);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
+						
 						e.printStackTrace();
 					}
     				System.out.println(false);
-    			
-    			//Om Usern finns i Group, sätt den till talkingUser och skicka 1 till klienten så den vet att den finns. 	
+    			//If the user exists in Group, set it as talkingUser and send 1 to the client to confirm its existence 	
     			}else{
     		
     				this.talkingUser = server.getGroup().findUser((String) received);
@@ -134,15 +161,15 @@ public class ClientHandler extends Thread{
 						oos.flush();
 						oos.writeObject(1);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
+						
 						e.printStackTrace();
 					}
 
     				System.out.println(true);
     			}
     			
-    			
-    		//Om User skickas istället för String sätt, talkingUser och loggedOn true
+    		//If a User is sent instead of String, set User to talkingUser and loggedOn to true	
+    		
 			} else if(received instanceof User){
 				User temp = (User)received;
 				talkingUser = server.getGroup().findUser(temp.getID());
@@ -152,13 +179,4 @@ public class ClientHandler extends Thread{
 		received = null;
 		
 	}
-
-	public Boolean getSetGroup() {
-		return setGroup;
-	}
-
-	public void setSetGroup(Boolean v) {
-		this.setGroup = v;
-		System.out.println("setGroup is:" + this.setGroup);
-	}    
 } 
