@@ -7,10 +7,11 @@ public class Group  extends Observable implements Serializable{
 	private Vote v;
 	private FikaScore fs;
 	private Que q;
-	
+	private ArrayList<String> wishlist;
 	public Group(){
 		this.users = new ArrayList<User>();  
 		this.v 	   = new Vote();
+		this.wishlist = new ArrayList<String>();
 		fs = new FikaScore();
 		q = new Que();
 	}
@@ -34,6 +35,12 @@ public class Group  extends Observable implements Serializable{
 
 	public void setV(Vote v) {
 		this.v = v;
+	}
+	public ArrayList<String> getWishlist() {
+		return wishlist;
+	}
+	public void setWishlist(ArrayList<String> wl) {
+		this.wishlist = wl;
 	}
 	public void addUser(String ID, int rating, boolean hasVoted) {
 		User u = new User(ID);
@@ -68,6 +75,7 @@ public class Group  extends Observable implements Serializable{
 		q.nextUser();
 		v.resetVote();
 		resetHasVoted();
+		q.getUsers().get(0).setHasVoted(true);
 		FileHandler s = new FileHandler(this);
 		s.save();
 		System.out.println("redo för nästa fika");

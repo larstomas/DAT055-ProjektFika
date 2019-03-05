@@ -2,6 +2,14 @@ package fikaAssests;
 
 import java.io.Serializable;
 
+/**
+ * Vote keeps track and calculates all votes being cast on Users responsible for fika.
+ * 
+ * 
+ * @author Group 4
+ * @version 0.6
+ */
+
 public class Vote implements Serializable{
 	private int noOfVotes;
 	private int currRating;
@@ -9,7 +17,10 @@ public class Vote implements Serializable{
 	public Vote(){
 		
 	}
-	
+	/**
+	 * Returns the number of Votes cast
+	 * @return - Returns the number of votes
+	 */
 	public int getNoOfVotes() {
 		return noOfVotes;
 	}

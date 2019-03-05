@@ -14,38 +14,45 @@ import java.util.*;
 
 @SuppressWarnings("serial")
 public class Gui extends JFrame{
-		JPanel jp;
-		JMenu fileMenu;
-		JMenu helpMenu;
-		JMenuBar menubar;
-		JMenuItem quit;
-		JMenuItem login;
-		JMenuItem help;
-		JMenuItem addRequest;
-		JMenuItem addRefresh;
-		JLabel jl;
-		JLabel jl2;
-		JLabel jl3;
-		JLabel jl5;
-		JLabel whosFika;
-		JTextArea requestTextArea; 
-		Dimension d;
-		JPanel listOfRequestsPanel;
-		JPanel queuePanel;
-		JPanel votePanel;
-		JPanel scorePanel;
-		JPanel qOrderPanel;
-		JPanel qOrderList;
-		JPanel votingPanel;
-		JPanel scores;
-		JPanel requestPanel;
-		Group group;
-		Client client;
-		ArrayList<JLabel> queueUsers;
-		ArrayList<JLabel> highScore;
-		ArrayList<JLabel> userScore;
-		ArrayList<JButton> votingButtons;
+		private JPanel jp;
+		private JMenu fileMenu;
+		private JMenu helpMenu;
+		private JMenuBar menubar;
+		private JMenuItem quit;
+		private JMenuItem login;
+		private JMenuItem help;
+		private JMenuItem addRequest;
+		private JMenuItem addRefresh;
+		private JLabel jl;
+		private JLabel jl2;
+		private JLabel jl3;
+		private JLabel jl5;
+		private JLabel whosFika;
+		private JTextArea requestTextArea; 
+		private Dimension d;
+		private JPanel listOfRequestsPanel;
+		private JPanel queuePanel;
+		private JPanel votePanel;
+		private JPanel scorePanel;
+		private JPanel qOrderPanel;
+		private JPanel qOrderList;
+		private JPanel votingPanel;
+		private JPanel scores;
+		private JPanel requestPanel;
+		private Group group;
+		private Client client;
+		private ArrayList<JLabel> queueUsers;
+		private ArrayList<JLabel> highScore;
+		private ArrayList<JLabel> userScore;
+		private ArrayList<JButton> votingButtons;
 		
+		/**
+		 * GUI constructor
+		 * 
+		 * @param gr - Group object
+		 * @param c - Client object
+		 * 
+		 */
 		public Gui(Group gr, Client c){
 			this.group = gr;
 			this.client = c;
@@ -53,20 +60,21 @@ public class Gui extends JFrame{
 			votingButtons = new ArrayList<>();
 			highScore = new ArrayList<>();
 			userScore = new ArrayList<>();
+			setTitle("FikaQuest: " + client.getUser().getID());
 			d = new Dimension(1100,200);
-		}	
+		}
 		
-		
-		
+		/**
+		 * Render Client GUI
+		 * 
+		 */
 		public void makeFrame(){
 
-			
 			//MENUBAR
 			makeMenuBar();
 			
 			//MAINWINDOW JPANEL 1,3 GRID
 			jp = new JPanel(new GridLayout(1,4));
-			
 			
 			setPreferredSize(d);
 			
@@ -75,22 +83,23 @@ public class Gui extends JFrame{
 			//CREATES QUEUE
 			makeQueue(queueUsers.size());
 			
-			
 			//CREATE VOTING MENU
 			makeVotingMenu();
 			
 			makeHighScore(group.getUsers().size());
 			
 			makeRequests(group.getUsers().size());
+			setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 			
-			setSize(1100,500);
 			add(jp);
 			pack();
 			setVisible(true);
-			
 		}
 
-
+		/**
+		 * Send the users vote
+		 * @param i - The vote in integer from 1 to 5
+		 */
 		private void sendVote(int i) {
 			System.out.println("Sended vote is: "+i);
 			this.client.setSendVote(true);
@@ -100,7 +109,10 @@ public class Gui extends JFrame{
 			setButtons(false);
 		}
 				
-		//CREATES THE PANEL AND LIST FOR HIGHSCORE
+		/**
+		 * Creates the panel and list for highscore
+		 * @param nrOfUsers - Number of users in integer
+		 */
 		private void makeHighScore(int nrOfUsers) {
 			
 			scorePanel = new JPanel();
@@ -128,7 +140,13 @@ public class Gui extends JFrame{
 		}
 		
 		
-		//CREATES POSITIONLABELS FOR HIGH SCORE
+		/**
+		 * Creates position labels for high score
+		 * 
+		 * @param noOfLabels - Number of Labels in Integer
+		 * 
+		 * @return - ArrayList<JLabel>
+		 */
 		private ArrayList<JLabel> makePositionLabels(int noOfLabels) {
 			ArrayList<JLabel> labels = new ArrayList<>();
 			for(int i = 1; i <= noOfLabels; i++) {
@@ -137,7 +155,10 @@ public class Gui extends JFrame{
 			}			
 			return labels;
 		}
-		//CREATES SCORELABELS FOR HIGHSCORE
+		
+		/**
+		 * Creates scorelabels for highscore
+		 */
 		private void createHighScore() {
 			group.getFikaScore().sort();
 			JLabel userID;
@@ -155,7 +176,10 @@ public class Gui extends JFrame{
 
 			}
 		}
-		//CREATES USER LABELS
+		
+		/**
+		 * Creates user labels
+		 */
 		private void makeUserLabels() {
 					
 			for(User u: group.getQue().getUsers()) {
@@ -165,6 +189,11 @@ public class Gui extends JFrame{
 			}	
 		}
 		
+		/**
+		 * Creates requestpanel and textarea for special fika requests
+		 * 
+		 * @param noOfUsers - Number of users in Integer
+		 */
 		private void makeRequests(int noOfUsers) {
 			requestPanel = new JPanel();
 			requestPanel.setLayout(new BoxLayout(requestPanel, BoxLayout.PAGE_AXIS));
@@ -178,8 +207,15 @@ public class Gui extends JFrame{
 				listOfRequestsPanel = new JPanel();
 				listOfRequestsPanel.setLayout(new BoxLayout(listOfRequestsPanel, BoxLayout.PAGE_AXIS));
 				listOfRequestsPanel.setBorder(new EtchedBorder());
-				
-				requestTextArea = new JTextArea("Något med grädde\nNågot med nötter");
+				if(group.getWishlist().equals("")) {
+					requestTextArea = new JTextArea("Inga önskemål!");
+				}else {
+					requestTextArea = new JTextArea("");
+					for(String s : group.getWishlist()) {
+					requestTextArea.insert(s + " \n", 0);
+					
+					}
+				}
 				requestTextArea.setEditable(false);
 				requestTextArea.setOpaque(false);
 				requestTextArea.setBackground(new Color(0,0,0,0));
@@ -194,7 +230,11 @@ public class Gui extends JFrame{
 			
 		}
 		
-		//CREATES QUEUE PANEL AND ADDS USERLABELS
+		/**
+		 * Creates queue panel and adds user labels
+		 * 
+		 * @param noOfUsers - Number of users in Integer
+		 */
 		private void makeQueue(int noOfUsers) {
 			queuePanel = new JPanel();
 			queuePanel.setLayout(new BoxLayout(queuePanel, BoxLayout.PAGE_AXIS));
@@ -225,7 +265,12 @@ public class Gui extends JFrame{
 				queuePanel.add(qOrderPanel);
 				jp.add(queuePanel);
 		}
-		//CREATES VOTING BUTTONS
+		
+		/**
+		 * Creates voting buttons
+		 * 
+		 * @param noOfButtons - Number of buttons in Integer
+		 */
 		private void makeVotingButtons(int noOfButtons) {
 			for(int i = 0; i < noOfButtons; i++) {
 				final Integer innerMi = new Integer(i+1);
@@ -237,7 +282,10 @@ public class Gui extends JFrame{
 				temp.addActionListener((e) -> {sendVote(innerMi);});
 			}	
 		}
-		//CREATES VOTING MENU
+		
+		/**
+		 * Creates voting menu
+		 */
 		private void makeVotingMenu() {
 			votePanel = new JPanel();
 			votePanel.setBorder(new EtchedBorder());
@@ -257,19 +305,22 @@ public class Gui extends JFrame{
 			whosFika = new JLabel(group.getQue().getUsers().get(0).getID()+"s fika");
 			subHeadPanel.add(whosFika);	
 			subHeadPanel.add(votingPanel);
-					
 			votePanel.add(jl2);
 			votePanel.add(subHeadPanel);
 			votePanel.add(new JPanel());
 			jp.add(votePanel);
 			
 		}
-		//MAKES MENUBAR
+		
+		/**
+		 * Makes menubar
+		 */
 		private void makeMenuBar() {
 			
 			fileMenu = new JMenu("Menu");
 			
 			addRequest = new JMenuItem("Lägg till önskemål");
+			addRequest.addActionListener(e->newRequest());
 			fileMenu.add(addRequest);
 			
 			addRefresh = new JMenuItem("Uppdatera");
@@ -289,11 +340,18 @@ public class Gui extends JFrame{
 			menubar.add(helpMenu);
 			setJMenuBar(menubar);
 		}
+		
+		/**
+		 * Exit the program
+		 */
 		private void quitApp() {
 			System.exit(0);
 		}
 		
-		//Changes the labels of Highscore and Queue for the new group
+		/**
+		 * Changes the labels of Highscore and Queue for the new group
+		 * @param g - A group obrect
+		 */
 		public void setNewGroup(Group g){		
 			for(int i = 0 ; i < g.getQue().getUsers().size() ; i++){
 				queueUsers.get(i).setText(g.getQue().getUsers().get(i).getID());
@@ -307,19 +365,28 @@ public class Gui extends JFrame{
 			}
 			
 			whosFika.setText(g.getQue().getUsers().get(0).getID()+"s fika");
-		
+			g.getQue().getUsers().get(0).setHasVoted(true);
 			if(g.findUser(this.client.getUser().getID()).hasVoted() == false){
 				setButtons(true);
+			}else {
+				setButtons(false);
 			}
 			
 		}
 
+		/**
+		 * Enables or disables the voting buttons
+		 * @param bool - for enabling or disabling buttons
+		 */
 		public void setButtons(Boolean bool){
 			for(JButton b : votingButtons){
 				b.setEnabled(bool);
 			}
 			
 		}
-
+		
+		
+		public void newRequest() {
+		}
 		
 }

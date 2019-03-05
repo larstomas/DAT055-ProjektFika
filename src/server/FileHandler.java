@@ -6,14 +6,12 @@ import fikaAssests.Group;
 import fikaAssests.User;
 import fikaAssests.Vote;
 public class FileHandler {
-	Group g;
+	private Group g;
+	
 	public FileHandler(Group g) {
 		this.g = g;
 	}
-	
-	public FileHandler() {	
-	}
-	
+
 	public void load() {
 		try {
 			BufferedReader reader =
@@ -28,6 +26,13 @@ public class FileHandler {
 						line = reader.readLine();
 						String[] vote = line.split("[,]");
 						v.loadVote(Integer.parseInt(vote[0]),Integer.parseInt(vote[1]));
+					}else if(line.equals("--WISHLIST--")){
+						line = reader.readLine();
+						while(line != null) {
+							g.getWishlist().add(line);
+							line = reader.readLine();
+						}
+					
 					}else {
 						String[] user = line.split("[,]");
 						// the array of words will be used to create a new user.
@@ -49,7 +54,9 @@ public class FileHandler {
 				}
 	}
 	
-	// Save settings
+	/**
+	 * Save settings
+	 */
 	public void save() {
 		try {
 		    FileWriter fileWriter = new FileWriter("SavedFika.txt");
@@ -63,6 +70,10 @@ public class FileHandler {
 		    }
 		    printWriter.println("--VOTE--");
 		    printWriter.println(v.getNoOfVotes() + "," + v.getCurrRating());
+		    printWriter.println("--WISHLIST--");
+		    for(String s: g.getWishlist()) {
+		    	printWriter.println(s);	
+		    }
 		    printWriter.close();
 			}
 			catch(IOException e) {
@@ -71,10 +82,18 @@ public class FileHandler {
 			}
 	}
 
+	/**
+	 * Get server group
+	 * @return
+	 */
 	public Group getG() {
 		return g;
 	}
 
+	/**
+	 * Get server group
+	 * @param g
+	 */
 	public void setG(Group g) {
 		this.g = g;
 	}

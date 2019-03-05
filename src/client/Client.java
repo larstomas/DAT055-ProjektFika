@@ -3,6 +3,9 @@ package client;
 import fikaAssests.*;
 import java.net.*;
 import java.util.*;
+
+import javax.swing.JOptionPane;
+
 import java.io.*;
 
 
@@ -21,6 +24,9 @@ public class Client  {
 	private int voteValue;
 	private User user;
 	
+	/**
+	 * Constructor for the Client
+	 */
 	public Client(){
 		try{
 			
@@ -32,38 +38,42 @@ public class Client  {
 		}
 	}
 	
+	/**
+	 * Handles the communications with the server
+	 */
 	public void recieveAndSend(){
-		try
-	     { 
-			//Sätter upp connection med server
+		try { 
+			//Sets up a connection with server
 	        s = new Socket(ip, 5056); 
 			ois = new ObjectInputStream(s.getInputStream()); 
 	        oos = new ObjectOutputStream(s.getOutputStream());
-       	 	
-	       //Hantera Login
-	       checkForLogin();
+	        
+	        //Handles Login
+	        checkForLogin();
 	       
-	       //FrågraServerOmGrupp
-	       askForGroup();
+	        //Ask Server about Group
+	        askForGroup();
 	             
-	        //Skicka eventuell röst, skicka 0 ingen röst gjorts
 			postVote();
 
 	        //Be om ny group innan stänger tråd
 			askForGroup();	        
 	        
-	         //Stäng Resurser
-	         ois.close(); 
-	         oos.close(); 
-	         this.s.close();
+	        //Stäng Resurser
+	        ois.close(); 
+	        oos.close(); 
+	        this.s.close();
 	         
-	     }catch(Exception e){ 
-	         e.printStackTrace(); 
+	     } catch(Exception e) { 
+	    	 e.printStackTrace(); 
 	     } 
 		
 	}
 	
-	
+	/**
+	 * Skicka eventuell röst, skicka 0 ingen röst gjorts
+	 * Sends vote 
+	 */
 	private void postVote() {
         if(!this.user.hasVoted() && this.isSendVote()){
         	sending = this.getVoteValue();
@@ -130,6 +140,7 @@ public class Client  {
        	 			received = null;
        	 			log.checklogin();
        	 			
+       	 			
        	 			//Skicka username
        	 			try {
 						oos.writeObject(log.getUserID());
@@ -140,6 +151,7 @@ public class Client  {
 
        	 			//Vänta på svar
        	 			while(received == null){
+       	 				
        	 				try {
 							received = ois.readObject();
 						} catch (ClassNotFoundException e) {
@@ -154,7 +166,8 @@ public class Client  {
        	 			//Om svar = 1, så finns usern i Group, sätt loggedIn
        	 			if((int)received == 1){
        	 				log.setLoggedIn();
-       	 			}
+       	 			} else
+       	 				JOptionPane.showMessageDialog(null, "User not found, try again");
        	 		}
    	 	
        	//Om klienten redan är inloggad så skicka user, så tråden vet vem den pratar med 	
