@@ -27,7 +27,7 @@ public class Group  extends Observable implements Serializable{
 	private FikaScore fs;
 	private Que q;
 	private ArrayList<String> wishlist;
-	
+
 	/**
 	 * Constructs a Group
 	 */
@@ -46,7 +46,7 @@ public class Group  extends Observable implements Serializable{
 	public ArrayList<User> getUsers() {
 		return users;
 	}
-	
+
 	/**
 	 * Returns an object FikaScore
 	 * @see FikaScore
@@ -56,7 +56,7 @@ public class Group  extends Observable implements Serializable{
 	public FikaScore getFikaScore() {
 		return fs;
 	}
-	
+
 	/**
 	 * Returns an object Que
 	 * @see Que
@@ -66,7 +66,7 @@ public class Group  extends Observable implements Serializable{
 	public Que getQue() {
 		return q;
 	}
-	
+
 	/**
 	 * Adds an ArrayList of User to Group
 	 * @see User
@@ -96,7 +96,7 @@ public class Group  extends Observable implements Serializable{
 	public void setV(Vote v) {
 		this.v = v;
 	}
-	
+
 	/**
 	 * Gets the wishlist for this Group
 	 * These are string which holds the desired or requested fika
@@ -106,7 +106,7 @@ public class Group  extends Observable implements Serializable{
 	public ArrayList<String> getWishlist() {
 		return wishlist;
 	}
-	
+
 	/**
 	 * Adds a new request on the wishlist
 	 * 
@@ -115,7 +115,7 @@ public class Group  extends Observable implements Serializable{
 	public void setWishlist(ArrayList<String> wl) {
 		this.wishlist = wl;
 	}
-	
+
 	/**
 	 * Adds a new User to the group and adds the user to to Que and FikaScore
 	 * @see Que
@@ -133,7 +133,7 @@ public class Group  extends Observable implements Serializable{
 		fs.addUser(u);
 		q.addUser(u);
 	}
-	
+
 	/**
 	 * Returns the first user in the ArrayList
 	 * 
@@ -170,7 +170,7 @@ public class Group  extends Observable implements Serializable{
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Sets up a new week of fika by first setting the calculated vote for the user having
 	 * fika on the current week. Then the queue is refreshed to set the new user having the next fika.
@@ -196,7 +196,7 @@ public class Group  extends Observable implements Serializable{
 		setChanged();
 		notifyObservers(this);
 	}
-	
+
 	/**
 	 * Finds and returns a user in Group
 	 * 
@@ -210,9 +210,9 @@ public class Group  extends Observable implements Serializable{
 			}
 		}
 		return null;
-		
+
 	}
-	
+
 	/**
 	 * Resets and sets all hasVoted for all user in the group to false
 	 * @see User
@@ -222,6 +222,6 @@ public class Group  extends Observable implements Serializable{
 			u.setHasVoted(false);
 		}
 	}
-	
+
 }
 

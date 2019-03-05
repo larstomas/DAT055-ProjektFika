@@ -13,9 +13,9 @@ import java.io.Serializable;
 public class Vote implements Serializable{
 	private int noOfVotes;
 	private int currRating;
-	
+
 	public Vote(){
-		
+
 	}
 	/**
 	 * Returns the number of Votes cast
@@ -32,8 +32,8 @@ public class Vote implements Serializable{
 	}
 	public void incomingVote(int vote) {
 		if(vote!= 0){
-		this.currRating = vote+this.currRating;
-		noOfVotes++;
+			this.currRating = vote+this.currRating;
+			noOfVotes++;
 		}
 	}
 	public void resetVote() {
@@ -44,13 +44,13 @@ public class Vote implements Serializable{
 		this.noOfVotes=noOfVotes;
 		this.currRating=currRating;
 	}
-	
+
 	public int calcVote() {
 		if(noOfVotes<=0) {
 			return 0;
 		}
 		return currRating/noOfVotes;
-		
+
 	}
 
 }

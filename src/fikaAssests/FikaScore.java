@@ -17,15 +17,15 @@ import java.util.ArrayList;
 
 public class FikaScore implements Serializable{
 	private ArrayList<User> users;
-	
+
 	/**
 	 * Constructs a FikaScore
 	 */
 	public FikaScore() {
 		this.users = new ArrayList<User>();
-		
+
 	}
-	
+
 	/**
 	 *  Sorts the ArrayList of User according to their rating
 	 */
@@ -40,7 +40,7 @@ public class FikaScore implements Serializable{
 			}
 		}
 	}
-	
+
 	/**
 	 *  Returns the ArrayList Users
 	 *  
@@ -49,7 +49,7 @@ public class FikaScore implements Serializable{
 	public ArrayList<User> getUsers(){
 		return users;
 	}
-	
+
 	/**
 	 * Adds a new User in the ArrayList Users and directly sorts them
 	 * after being added
