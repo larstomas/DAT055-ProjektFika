@@ -1,17 +1,32 @@
 package server;
 import java.io.*;
 import java.util.ArrayList;
-
 import fikaAssests.Group;
 import fikaAssests.User;
 import fikaAssests.Vote;
+
+/**
+ * FileHandler saves and loads information of a Group.
+ * Changes that are made are saved in SavedFika.txt when the server goes offline.
+ * When the server goes online SavedFika.txt is loaded.
+ * 
+ * @author Grupp 4
+ * @version 0.6
+ */
 public class FileHandler {
 	private Group g;
 	
+	/**
+	 * Creates a FileHandler object.
+	 * @param g - The Group to save/load data from.
+	 */
 	public FileHandler(Group g) {
 		this.g = g;
 	}
-
+	
+	/**
+	 * Loads user data from SavedFika.txt to a Group 
+	 */
 	public void load() {
 		try {
 			BufferedReader reader =
@@ -55,7 +70,7 @@ public class FileHandler {
 	}
 	
 	/**
-	 * Save settings
+	 * Saves data of a Group to SavedFika.txt
 	 */
 	public void save() {
 		try {
@@ -83,18 +98,11 @@ public class FileHandler {
 	}
 
 	/**
-	 * Get server group
-	 * @return
+	 * Get a Group with the data saved in SavedFika.txt
+	 * @return - Returns a Group with the data saved in SavedFika.txt
 	 */
 	public Group getG() {
 		return g;
 	}
 
-	/**
-	 * Get server group
-	 * @param g
-	 */
-	public void setG(Group g) {
-		this.g = g;
-	}
 }
