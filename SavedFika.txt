@@ -1,12 +1,8 @@
-<<<<<<< HEAD
-
-=======
 Tomas,50,true
 Alex,35,false
 Mellard,64,false
 Jonatan,50,false
 Julius,51,false
->>>>>>> parent of f5b2766... Ändrat indenteringarna
 --VOTE--
 0,0
 --WISHLIST--
