@@ -23,82 +23,82 @@ public class Client  {
 	private boolean sendVote;
 	private int voteValue;
 	private User user;
-	
+
 	/**
 	 * Constructor for the Client
 	 */
 	public Client(){
 		try{
-			
-	        ip = InetAddress.getByName("localhost"); 
-	        log = new Login(group);
-	        
+
+			ip = InetAddress.getByName("localhost"); 
+			log = new Login(group);
+
 		} catch (Exception e){
-			
+
 		}
 	}
-	
+
 	/**
 	 * Handles the communications with the server
 	 */
 	public void recieveAndSend(){
 		try { 
 			//Sets up a connection with server
-	        s = new Socket(ip, 5056); 
+			s = new Socket(ip, 5056); 
 			ois = new ObjectInputStream(s.getInputStream()); 
-	        oos = new ObjectOutputStream(s.getOutputStream());
-	        
-	        //Handles Login
-	        checkForLogin();
-	       
-	        //Ask Server about Group
-	        askForGroup();
-	             
+			oos = new ObjectOutputStream(s.getOutputStream());
+
+			//Handles Login
+			checkForLogin();
+
+			//Ask Server about Group
+			askForGroup();
+
 			postVote();
 
-	        //Be om ny group innan stänger tråd
+			//Be om ny group innan stänger tråd
 			askForGroup();	        
-	        
-	        //Stäng Resurser
-	        ois.close(); 
-	        oos.close(); 
-	        this.s.close();
-	         
-	     } catch(Exception e) { 
-	    	 e.printStackTrace(); 
-	     } 
-		
+
+			//Stäng Resurser
+			ois.close(); 
+			oos.close(); 
+			this.s.close();
+
+		} catch(Exception e) { 
+			e.printStackTrace(); 
+		} 
+
 	}
-	
+
 	/**
 	 * Skicka eventuell röst, skicka 0 ingen röst gjorts
 	 * Sends vote 
 	 */
 	private void postVote() {
-        if(!this.user.hasVoted() && this.isSendVote()){
-        	sending = this.getVoteValue();
-        	System.out.println("Clieent skickar röst" + sending);
-        	this.setSendVote(false);
+		if(!this.user.hasVoted() && this.isSendVote()){
+			sending = this.getVoteValue();
+			System.out.println("Clieent skickar röst" + sending);
+			this.setSendVote(false);
 
-         } else {
-        	 sending = 0;
-        	 System.out.println("Clieent skickar röst" + sending);
-        	 
-         } 
-        try {
+		} else {
+			sending = 0;
+			System.out.println("Clieent skickar röst" + sending);
+
+		} 
+		try {
 			oos.writeObject(sending);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        System.out.println("Client har skickat röst");
-		
+		System.out.println("Client har skickat röst");
+
 	}
 
 	private void askForGroup() {
 		//Väntar på group
 		while(received == null){
-             
+
 			try {
 				received = ois.readObject();
 			} catch (ClassNotFoundException e) {
@@ -108,84 +108,85 @@ public class Client  {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-             
+
 			//Om Gui inte gjorts gör Gui och sätt group
-             if(received instanceof Group && gui == null){
-            	 this.group = (Group)received;
-            	 this.user = group.findUser(log.getUserID());
-            	 gui = new Gui(group, this);
-            	 gui.makeFrame();
-            	 System.out.println("Client har fått fika");
-                 
-             //annars sätt bara group    
-             } else if(received instanceof Group){
-            	 System.out.println("Client har fått fika");
-            	 
-            	 this.group = (Group)received;
-            	 gui.setNewGroup(group);
-            	 this.user = group.findUser(log.getUserID());
-             }
+			if(received instanceof Group && gui == null){
+				this.group = (Group)received;
+				this.user = group.findUser(log.getUserID());
+				gui = new Gui(group, this);
+				gui.makeFrame();
+				System.out.println("Client har fått fika");
+
+				//annars sätt bara group    
+			} else if(received instanceof Group){
+				System.out.println("Client har fått fika");
+
+				this.group = (Group)received;
+				gui.setNewGroup(group);
+				this.user = group.findUser(log.getUserID());
+			}
 		}     
-        
+
 		received = null;
-		
+
 	}
 
 	private void checkForLogin() {
+
 		//Om inte inloggad
-   	 	if(!log.isLoggedIn()){
-   	 		//Be om username tills inloggad
-       	 	while(!log.isLoggedIn()) {
-       	 			received = null;
-       	 			log.checklogin();
-       	 			
-       	 			
-       	 			//Skicka username
-       	 			try {
-						oos.writeObject(log.getUserID());
+		if(!log.isLoggedIn()){
+			//Be om username tills inloggad
+			while(!log.isLoggedIn()) {
+				received = null;
+				log.checklogin();
+
+
+				//Skicka username
+				try {
+					oos.writeObject(log.getUserID());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				//Vänta på svar
+				while(received == null){
+
+					try {
+						received = ois.readObject();
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
-       	 			//Vänta på svar
-       	 			while(received == null){
-       	 				
-       	 				try {
-							received = ois.readObject();
-						} catch (ClassNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+				}
+				//Om svar = 1, så finns usern i Group, sätt loggedIn
+				if((int)received == 1){
+					log.setLoggedIn();
+				} else
+					JOptionPane.showMessageDialog(null, "User not found, try again");
+			}
 
-       	 			}
-       	 			//Om svar = 1, så finns usern i Group, sätt loggedIn
-       	 			if((int)received == 1){
-       	 				log.setLoggedIn();
-       	 			} else
-       	 				JOptionPane.showMessageDialog(null, "User not found, try again");
-       	 		}
-   	 	
-       	//Om klienten redan är inloggad så skicka user, så tråden vet vem den pratar med 	
-   	 	} else {
-   	 		try {
+			//Om klienten redan är inloggad så skicka user, så tråden vet vem den pratar med 	
+		} else {
+			try {
 				oos.writeObject(user);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-   	 	}
-   	 	received = null;
-		
+		}
+		received = null;
+
 	}
 
 	public void setGroup(Group g){
 		this.group = g;
 	}
-	
+
 	public Group getGroup(){
 		return this.group;
 	}
@@ -213,5 +214,5 @@ public class Client  {
 		this.voteValue = voteValue;
 	}
 
-	
+
 } 

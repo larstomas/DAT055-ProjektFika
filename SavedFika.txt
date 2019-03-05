@@ -1,8 +1,4 @@
-Mellard,64,true
-Jonatan,50,false
-Julius,48,false
-Tomas,53,false
-Alex,38,false
+
 --VOTE--
 0,0
 --WISHLIST--
