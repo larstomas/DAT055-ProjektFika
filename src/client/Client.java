@@ -132,7 +132,6 @@ public class Client  {
 	}
 
 	private void checkForLogin() {
-		
 		//Om inte inloggad
    	 	if(!log.isLoggedIn()){
    	 		//Be om username tills inloggad
