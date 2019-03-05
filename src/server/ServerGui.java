@@ -22,6 +22,7 @@ public class ServerGui extends JFrame{
 		//exit.addActionListener(e->);
 		next.addActionListener(e->this.s.getGroup().nextFika());
 		
+		
 		this.add(exit);
 		this.add(next);
 		this.setVisible(true);
