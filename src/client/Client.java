@@ -23,6 +23,7 @@ public class Client  {
 	private boolean sendVote;
 	private int voteValue;
 	private User user;
+	private ArrayList<String> newRequests;
 	
 	/**
 	 * Constructor for the Client
@@ -36,6 +37,7 @@ public class Client  {
 		} catch (Exception e){
 			
 		}
+		this.newRequests = new ArrayList<String>();
 	}
 	
 	/**
@@ -55,7 +57,7 @@ public class Client  {
 	        askForGroup();
 	             
 			postVote();
-
+			postRequest();
 	        //Be om ny group innan stänger tråd
 			askForGroup();	        
 	        
@@ -77,12 +79,12 @@ public class Client  {
 	private void postVote() {
         if(!this.user.hasVoted() && this.isSendVote()){
         	sending = this.getVoteValue();
-        	System.out.println("Clieent skickar röst" + sending);
+        	//System.out.println("Clieent skickar röst" + sending);
         	this.setSendVote(false);
 
          } else {
         	 sending = 0;
-        	 System.out.println("Clieent skickar röst" + sending);
+        	// System.out.println("Clieent skickar röst" + sending);
         	 
          } 
         try {
@@ -91,8 +93,23 @@ public class Client  {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        System.out.println("Client har skickat röst");
+        //System.out.println("Client har skickat röst");
 		
+	}
+	
+	private void postRequest() {
+		if(newRequests.size()==0) {
+			newRequests.add("--Nothing Here--");
+		}else {
+			sending = this.newRequests;
+		}
+        try {
+			oos.writeObject(sending);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        newRequests.remove(0);
 	}
 
 	private void askForGroup() {
@@ -115,11 +132,11 @@ public class Client  {
             	 this.user = group.findUser(log.getUserID());
             	 gui = new Gui(group, this);
             	 gui.makeFrame();
-            	 System.out.println("Client har fått fika");
+            	// System.out.println("Client har fått fika");
                  
              //annars sätt bara group    
              } else if(received instanceof Group){
-            	 System.out.println("Client har fått fika");
+            //	 System.out.println("Client har fått fika");
             	 
             	 this.group = (Group)received;
             	 gui.setNewGroup(group);
@@ -212,6 +229,13 @@ public class Client  {
 
 	public void setVoteValue(int voteValue) {
 		this.voteValue = voteValue;
+	}
+	public ArrayList<String> getNewRequests() {
+		return newRequests;
+	}
+
+	public void addNewRequests(String request) {
+		newRequests.add(request);
 	}
 
 	

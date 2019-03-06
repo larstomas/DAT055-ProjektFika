@@ -110,11 +110,12 @@ public class Group  extends Observable implements Serializable{
 	/**
 	 * Adds a new request on the wishlist
 	 * 
-	 * @param wl - String describing the required/ requested fika
+	 * @param request - String describing the required/ requested fika
 	 */
-	public void setWishlist(ArrayList<String> wl) {
-		this.wishlist = wl;
+	public void addRequest(String request) {
+		wishlist.add(request);
 	}
+	
 	
 	/**
 	 * Adds a new User to the group and adds the user to to Que and FikaScore

@@ -387,6 +387,8 @@ public class Gui extends JFrame{
 		
 		
 		public void newRequest() {
+			String request = JOptionPane.showInputDialog("Skriv in ditt önskemål här: ");
+			client.addNewRequests(request);
 		}
 		
 }

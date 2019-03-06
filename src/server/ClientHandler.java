@@ -2,6 +2,7 @@ package server;
 import fikaAssests.*;
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 
 
 /**
@@ -64,7 +65,7 @@ public class ClientHandler extends Thread{
                 
         		//Ta emot ev röst
                 handleVote();
-                
+                handleRequest();
                 //Send group before closing thread
                 oos.writeObject(server.getGroup()); 
 
@@ -113,6 +114,33 @@ public class ClientHandler extends Thread{
         received = null;
 		
 	}
+    private void handleRequest() {
+		while(received == null){
+        	try {
+				received = ois.readObject();
+			} catch (ClassNotFoundException e) {
+				
+				e.printStackTrace();
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+		}
+		if(received instanceof ArrayList<?>) {
+			ArrayList<String> requests = (ArrayList<String>) received;
+			if(requests.get(0).equals("--Nothing Here--")) {
+				System.out.println("HELLO");
+				
+			}else {
+				for(String s: requests) {
+					System.out.println(s);
+					g.addRequest(s);
+				}
+			}
+		}
+		received = null;
+    }
+
 	
 	/**
 	 * Checks whether a client is logged in and however a client trying to log in 
