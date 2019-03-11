@@ -1,4 +1,4 @@
-﻿package client;
+package client;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
