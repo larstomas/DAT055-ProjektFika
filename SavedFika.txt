@@ -1,10 +1,11 @@
-Mellard,64,true
-Jonatan,50,false
-Julius,51,false
-Tomas,55,false
+Tomas,55,true
 Alex,35,false
+Användare,0,false
+Mellard,64,false
+Jonatan,54,false
+Julius,51,false
 --VOTE--
 0,0
 --WISHLIST--
-Bullar
-Tårta
+Pizza
+Grädde

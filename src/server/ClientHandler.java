@@ -132,9 +132,10 @@ public class ClientHandler extends Thread{
 				System.out.println("HELLO");
 				
 			}else {
+				System.out.println(received.getClass());
+			//	System.out.println(server.getGroup().getWishlist());
 				for(String s: requests) {
-					System.out.println(s);
-					g.addRequest(s);
+					server.getGroup().addRequest(s);
 				}
 			}
 		}

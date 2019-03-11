@@ -114,6 +114,8 @@ public class Group  extends Observable implements Serializable{
 	 */
 	public void addRequest(String request) {
 		wishlist.add(request);
+		FileHandler s = new FileHandler(this);
+		s.save();
 	}
 	
 	
@@ -190,6 +192,10 @@ public class Group  extends Observable implements Serializable{
 		v.resetVote();
 		resetHasVoted();
 		q.getUsers().get(0).setHasVoted(true);
+		int wishlistSize = wishlist.size();
+		for(int i=0;i<wishlistSize;i++) {
+			wishlist.remove(0);
+		}
 		FileHandler s = new FileHandler(this);
 		s.save();
 		System.out.println("redo för nästa fika");

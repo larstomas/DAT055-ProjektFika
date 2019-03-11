@@ -21,6 +21,7 @@ public class Gui extends JFrame{
 		private JMenuBar menubar;
 		private JMenuItem quit;
 		private JMenuItem help;
+		private JMenuItem credit;
 		private JMenuItem addRequest;
 		private JMenuItem addRefresh;
 		private JLabel jl;
@@ -122,7 +123,7 @@ public class Gui extends JFrame{
 			scorePanel.setLayout(new BoxLayout(scorePanel, BoxLayout.Y_AXIS));
 			
 				jl3 = new JLabel("Fikascore");
-				jl3.setBorder(new EtchedBorder());
+			//	jl3.setBorder(new EtchedBorder());
 				scores = new JPanel(new GridLayout(nrOfUsers,3));
 				
 				createHighScore();
@@ -202,7 +203,7 @@ public class Gui extends JFrame{
 				
 				//jl5.setHorizontalAlignment(JLabel.CENTER);
 				jl5.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-				jl5.setBorder(new EtchedBorder());
+				//jl5.setBorder(new EtchedBorder());
 			
 				listOfRequestsPanel = new JPanel();
 				listOfRequestsPanel.setLayout(new BoxLayout(listOfRequestsPanel, BoxLayout.PAGE_AXIS));
@@ -241,7 +242,7 @@ public class Gui extends JFrame{
 			
 			queuePanel.setBorder(new EtchedBorder());		
 				jl = new JLabel("Kölista");
-				jl.setBorder(new EtchedBorder());
+			//	jl.setBorder(new EtchedBorder());
 				
 				qOrderPanel = new JPanel();
 				qOrderPanel.setBorder(new EtchedBorder());
@@ -292,7 +293,7 @@ public class Gui extends JFrame{
 			votePanel.setLayout(new BoxLayout(votePanel, BoxLayout.PAGE_AXIS));
 			
 			jl2 = new JLabel("Rösta på: ");
-			jl2.setBorder(new EtchedBorder());	
+		//	jl2.setBorder(new EtchedBorder());	
 			
 			JPanel subHeadPanel = new JPanel();
 			subHeadPanel.setBorder(new EtchedBorder());
@@ -334,7 +335,10 @@ public class Gui extends JFrame{
 			helpMenu = new JMenu("Help");
 			help = new JMenuItem("Help");
 			helpMenu.add(help);
-		
+			help.addActionListener(e->helpNotif());
+			credit = new JMenuItem("Credit");
+			helpMenu.add(credit);
+			credit.addActionListener(e->helpCredit());
 			menubar = new JMenuBar();
 			menubar.add(fileMenu);
 			menubar.add(helpMenu);
@@ -366,6 +370,11 @@ public class Gui extends JFrame{
 			
 			whosFika.setText(g.getQue().getUsers().get(0).getID()+"s fika");
 			g.getQue().getUsers().get(0).setHasVoted(true);
+			requestTextArea.setText("");
+			//System.out.println(g.getWishlist());
+			for(String s : g.getWishlist()) {
+			requestTextArea.insert(s + " \n", 0);
+			}
 			if(g.findUser(this.client.getUser().getID()).hasVoted() == false){
 				setButtons(true);
 			}else {
@@ -390,5 +399,16 @@ public class Gui extends JFrame{
 			String request = JOptionPane.showInputDialog("Skriv in ditt önskemål här: ");
 			client.addNewRequests(request);
 		}
-		
+		/**
+		 * Shows the help notification
+		 */
+		public void helpNotif() {
+			JOptionPane.showMessageDialog(null,"Kolla genom användarmanualen för hjälp!");
+		}
+		/**
+		 * Shows the credits 
+		 */
+		public void helpCredit() {
+			JOptionPane.showMessageDialog(null, "Group 4: Alexander Al-Hakeem, Jonatan Berko, Mellard Buhian, Tomas Bäckman. Julius Hopf");
+		}
 }
