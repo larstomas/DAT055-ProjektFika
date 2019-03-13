@@ -2,7 +2,6 @@ package client;
 import java.io.IOException;
 
 import fikaAssests.Group;
-import fikaAssests.Login;
 import server.FileHandler;
 
 public class Main {

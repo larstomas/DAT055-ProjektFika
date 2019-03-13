@@ -1,7 +1,10 @@
-package fikaAssests;
+package client;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+
+import fikaAssests.Group;
+import fikaAssests.User;
 
 public class Login implements Serializable{
     private Group gr;

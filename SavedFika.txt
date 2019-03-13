@@ -1,11 +1,9 @@
-Tomas,55,true
-Alex,35,false
-Användare,0,false
+Alex,35,true
 Mellard,64,false
 Jonatan,54,false
 Julius,51,false
+Tomas,56,false
 --VOTE--
 0,0
 --WISHLIST--
-Pizza
-Grädde
+Tomas
