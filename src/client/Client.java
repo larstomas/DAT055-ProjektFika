@@ -273,11 +273,26 @@ public class Client  {
 	}
 
 	/**
-	 * Sets the the voteValue
+	 * Sets the voteValue
 	 * @param voteValue - The value of the vote
 	 */
 	public void setVoteValue(int voteValue) {
 		this.voteValue = voteValue;
+	}
+	
+	/**
+	 * Returns the new request for a fika
+	 * @return - ArrayList of the new request
+	 */
+	public ArrayList<String> getNewRequests() {
+		return newRequests;
+	}
+	/**
+	 * Adds a new request
+	 * @param request - The string value of request
+	 */
+	public void addNewRequests(String request) {
+		newRequests.add(request);
 	}
 	
 } 
