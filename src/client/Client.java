@@ -1,4 +1,3 @@
-
 package client;
 import fikaAssests.*;
 import java.net.*;
@@ -8,7 +7,21 @@ import javax.swing.JOptionPane;
 
 import java.io.*;
 
-
+/**
+ * Client handles communicating with the server and processes
+ * which involves user interaction to the application. Client's
+ * connection to server is in the form of a thread through clientHandler.
+ * Client then handles posting votes, checking logins, and fetching 
+ * groups which are needed for the GUI to show information about the 
+ * queue and scores.
+ * 
+ * @see Gui
+ * @see User
+ *
+ * @author group 4
+ * @version 0.6
+ *
+ */
 
 public class Client  { 
 	private InetAddress ip;
@@ -41,27 +54,25 @@ public class Client  {
 	}
 	
 	/**
-	 * Handles the communications with the server
+	 * Handles the communications with the server. First it sets a socket for which the
+	 * client will connect and created object input and output streams. recieveAndSend then
+	 * calls on the method checkForLogin to identify which user is communicating with the server.
+	 * Following this, recieveAndSend ask the server about the group through askForGroup.
+	 * postVote is then called to cast in votes that occurred and then askForGroup is 
+	 * called again to fetch a new Group with the votes implemented.
+	 *
 	 */
 	public void recieveAndSend(){
 		try { 
-			//Sets up a connection with server
 	        s = new Socket(ip, 5056); 
 			ois = new ObjectInputStream(s.getInputStream()); 
 	        oos = new ObjectOutputStream(s.getOutputStream());
-	        
-	        //Handles Login
 	        checkForLogin();
-	       
-	        //Ask Server about Group
 	        askForGroup();
 	             
 			postVote();
 			postRequest();
-	        //Be om ny group innan stänger tråd
-			askForGroup();	        
-	        
-	        //Stäng Resurser
+			askForGroup();
 	        ois.close(); 
 	        oos.close(); 
 	        this.s.close();
@@ -73,30 +84,35 @@ public class Client  {
 	}
 	
 	/**
-	 * Skicka eventuell röst, skicka 0 ingen röst gjorts
-	 * Sends vote 
+	 * postVote manages all the voting for the Group. First it check if the user who logged in has voted.
+	 * If the user has voted, which is indicated in user's hasVoted variable and sendVote(this variable
+	 * indicates if this user is voting or not), postVote will send 0 votes otherwise postVote will send
+	 * the current vote value(voteValue variable in this class) and set sentVote as false to indicate that
+	 * this user will not send votes anymore. postVote then sends the vote to clientHandler via the objectStream
+	 * 
+	 * @throws IOException - if sending value is null
+	 * 
 	 */
 	private void postVote() {
         if(!this.user.hasVoted() && this.isSendVote()){
         	sending = this.getVoteValue();
-        	//System.out.println("Clieent skickar röst" + sending);
         	this.setSendVote(false);
 
          } else {
         	 sending = 0;
-        	// System.out.println("Clieent skickar röst" + sending);
         	 
          } 
         try {
 			oos.writeObject(sending);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        //System.out.println("Client har skickat röst");
-		
 	}
 	
+	/**
+	 * Todo
+	 */
+
 	private void postRequest() {
 		if(newRequests.size()==0) {
 			newRequests.add("--Nothing Here--");
@@ -106,37 +122,39 @@ public class Client  {
         try {
 			oos.writeObject(sending);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         newRequests.remove(0);
 	}
 
+	
+	/**
+	 * askForGroup manages the changes which occurs in the Group object. askForGroup fetches
+	 * a Group object from the object stream and checks if the GUI for the client is created.
+	 * If no GUI exist then askForGroup creates the GUI. askForGroup then sets the user who is
+	 * logged in and the group which will be used. Finally received is then set to null again
+	 * to allow fetching for new Group later on.
+	 * 
+	 */
+
 	private void askForGroup() {
-		//Väntar på group
 		while(received == null){
              
 			try {
 				received = ois.readObject();
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
              
-			//Om Gui inte gjorts gör Gui och sätt group
              if(received instanceof Group && gui == null){
             	 this.group = (Group)received;
             	 this.user = group.findUser(log.getUserID());
             	 gui = new Gui(group, this);
             	 gui.makeFrame();
-            	// System.out.println("Client har fått fika");
-                 
-             //annars sätt bara group    
+                    
              } else if(received instanceof Group){
-            //	 System.out.println("Client har fått fika");
             	 
             	 this.group = (Group)received;
             	 gui.setNewGroup(group);
@@ -148,51 +166,49 @@ public class Client  {
 		
 	}
 
+	/**
+	 * checkForLogin manages the user who logs in to the application. Using Login class from the fikaAssets,
+	 * it checks if the user exist in Group. If the user is not logged, checkForLogin ask the user(using
+	 * checklogin from Login class) to log in. Once the user has logged in the userId is then sent to the
+	 * clientHandler and waits for an integer. If checkForLogin receives 0 from clientHandler, the user was
+	 * not found and is prompted to try again. if checkForLogin receives 1, the user is then set. Finally
+	 * if the Client is already logged in, the user is sent in the object stream to identify itself in the
+	 * threads in ClientHandler
+	 * 
+	 */
 	private void checkForLogin() {
-		
-		//Om inte inloggad
+
    	 	if(!log.isLoggedIn()){
-   	 		//Be om username tills inloggad
        	 	while(!log.isLoggedIn()) {
        	 			received = null;
        	 			log.checklogin();
        	 			
-       	 			
-       	 			//Skicka username
        	 			try {
 						oos.writeObject(log.getUserID());
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
-       	 			//Vänta på svar
        	 			while(received == null){
        	 				
        	 				try {
 							received = ois.readObject();
 						} catch (ClassNotFoundException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 
        	 			}
-       	 			//Om svar = 1, så finns usern i Group, sätt loggedIn
        	 			if((int)received == 1){
        	 				log.setLoggedIn();
        	 			} else
        	 				JOptionPane.showMessageDialog(null, "User not found, try again");
-       	 		}
-   	 	
-       	//Om klienten redan är inloggad så skicka user, så tråden vet vem den pratar med 	
+       	 		}	
    	 	} else {
    	 		try {
 				oos.writeObject(user);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
    	 	}
@@ -200,43 +216,68 @@ public class Client  {
 		
 	}
 
+	/**
+	 * Sets the the Group to be used
+	 * @param g - Instance of Group
+	 */
 	public void setGroup(Group g){
 		this.group = g;
 	}
 	
+	/**
+	 * Returns instance of the Group being used
+	 * @return - Returns the object Group currrently used 
+	 */
 	public Group getGroup(){
 		return this.group;
 	}
 
+	/**
+	 * Returns a Users Login identification
+	 * @return - Returns a Users Login identification as String 
+	 */
 	public User getUser() {
 		return user;
 	}
 
+	/**
+	 * Sets the the user for the client
+	 * @param user - user to be set as the client
+	 */
 	public void setUser(User user) {
 		this.user = user;
 	}
 
+	/**
+	 * Returns a boolean as identification if user is sending vote
+	 * @return - Returns a boolean which identifies if user is voting
+	 */
 	public boolean isSendVote() {
 		return sendVote;
 	}
 
+	/**
+	 * Sets the sendVote boolean to identify if the user is voting or not
+	 * @param sendVote - The value of the sendVote
+	 */
 	public void setSendVote(boolean sendVote) {
 		this.sendVote = sendVote;
 	}
+	
+	/**
+	 * Returns an integer containing the vote value
+	 * @return - Returns voteValue as String 
+	 */
 	public int getVoteValue() {
 		return voteValue;
 	}
 
+	/**
+	 * Sets the the voteValue
+	 * @param voteValue - The value of the vote
+	 */
 	public void setVoteValue(int voteValue) {
 		this.voteValue = voteValue;
 	}
-	public ArrayList<String> getNewRequests() {
-		return newRequests;
-	}
-
-	public void addNewRequests(String request) {
-		newRequests.add(request);
-	}
-
 	
 } 
