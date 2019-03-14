@@ -51,27 +51,14 @@ public class ClientHandler extends Thread{
     public void run() { 
     	
         	try { 
-        		
-        		//Login procedure
         		handleLogin();
-        		
-        		
-        		//Skicka Group till Client
         		oos.writeObject(server.getGroup());
         		oos.reset();
         		
         		System.out.println("First group sent");
-        		        					                
-                
-        		//Ta emot ev röst
                 handleVote();
                 handleRequest();
-                //Send group before closing thread
                 oos.writeObject(server.getGroup()); 
-
-                
-     
-                //Close thread
                 this.ois.close(); 
                 this.oos.close();
                 System.out.println("Tråd stänger");
@@ -90,7 +77,6 @@ public class ClientHandler extends Thread{
 	 * Finally it records that the Client voting has voted.
 	 */
     private void handleVote() {
-		//Wait for vote
 		while(received == null){
         	try {
 				received = (int)ois.readObject();
@@ -102,8 +88,6 @@ public class ClientHandler extends Thread{
 				e.printStackTrace();
 			}
         }
-		
-		//If vote is greater than 0, set vote for talkingUser.
 		System.out.println(received.getClass());
 		if((int)received > 0){
 			
@@ -114,6 +98,9 @@ public class ClientHandler extends Thread{
         received = null;
 		
 	}
+    /**
+     * Handles the request for önskelistan. It gets the request from the Client and adds the request to the group saved in the server
+     */
     private void handleRequest() {
 		while(received == null){
         	try {
@@ -149,11 +136,9 @@ public class ClientHandler extends Thread{
 	 * 
 	 */
 	private void handleLogin() {
-		//As long as anyone isn't logged in.
 		while(loggedOn == false){
 			received = null;
 			
-			//Receive object
 			while(received == null){
 				try {
 					received = ois.readObject();
@@ -167,10 +152,8 @@ public class ClientHandler extends Thread{
 			}
 			
 			System.out.println("tar emot " + received.getClass());
-			//If receibed object is of type String
 			if(received instanceof String){
 				
-				//If the string doesn't exist as a User in Group, send 0
     			if(server.getGroup().findUser((String) received) == null){
     				try {
 						oos.flush();
@@ -179,8 +162,7 @@ public class ClientHandler extends Thread{
 						
 						e.printStackTrace();
 					}
-    				System.out.println(false);
-    			//If the user exists in Group, set it as talkingUser and send 1 to the client to confirm its existence 	
+    				System.out.println(false); 	
     			}else{
     		
     				this.talkingUser = server.getGroup().findUser((String) received);
@@ -196,8 +178,6 @@ public class ClientHandler extends Thread{
     				System.out.println(true);
     			}
     			
-    		//If a User is sent instead of String, set User to talkingUser and loggedOn to true	
-    		
 			} else if(received instanceof User){
 				User temp = (User)received;
 				talkingUser = server.getGroup().findUser(temp.getID());

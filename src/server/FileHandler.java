@@ -34,7 +34,6 @@ public class FileHandler {
 			new FileReader("SavedFika.txt"));
 			String line = reader.readLine();
 			while(line != null) {
-				//Splits the text line where "," is present and each word will be stored in an array
 				if(line!=null) {
 					if(line.equals("--VOTE--")) {
 						Vote v = g.getV();
@@ -79,7 +78,6 @@ public class FileHandler {
 		    ArrayList<User> users = g.getQue().getUsers();
 		    Vote v = g.getV();
 		    for(User u : users) {
-		    // Saves all users in group into a text file where each variable  is with an "," at the end to seperate them.
 		    	printWriter.printf(u.getID()+ ","+ u.getRating()+","+u.hasVoted());
 		    	printWriter.println();
 		    }

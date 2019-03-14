@@ -13,6 +13,17 @@ import fikaAssests.User;
 
 import java.util.*;
 
+/**
+ * GUI creates the user interface for the application. GUI uses information from the
+ * class Group to display information such as the Queue list and the Fika scores.
+ * GUI is constructed by the client.
+ * 
+ * 
+ * @author group 4
+ * @version 0.6
+ *
+ */
+
 @SuppressWarnings("serial")
 public class Gui extends JFrame{
 		private JPanel jp;
@@ -61,32 +72,24 @@ public class Gui extends JFrame{
 			votingButtons = new ArrayList<>();
 			highScore = new ArrayList<>();
 			userScore = new ArrayList<>();
-			setTitle("FikaQuest: " + client.getUser().getID());
+			setTitle("FikaListan: " + client.getUser().getID());
 			d = new Dimension(1100,200);
 			Timer timer = new Timer(1000, e->this.client.recieveAndSend());
 	        timer.start();
 		}
 		
 		/**
-		 * Render Client GUI
+		 * Render Client GUI. This is done by calling methods which constructs different
+		 * parts of the application such as the menubar, Queue list, Score list and voting menu.
 		 * 
 		 */
 		public void makeFrame(){
-
-			//MENUBAR
 			makeMenuBar();
-			
-			//MAINWINDOW JPANEL 1,3 GRID
 			jp = new JPanel(new GridLayout(1,4));
 			
 			setPreferredSize(d);
-			
-			//CREATE USER LABELS. SAVED IN queueUsers AND highScoreUsers
 			makeUserLabels();
-			//CREATES QUEUE
 			makeQueue(queueUsers.size());
-			
-			//CREATE VOTING MENU
 			makeVotingMenu();
 			
 			makeHighScore(group.getUsers().size());
@@ -100,7 +103,7 @@ public class Gui extends JFrame{
 		}
 
 		/**
-		 * Send the users vote
+		 * Send the users vote, if the user has voted, the buttons are then disabled using setButtons.
 		 * @param i - The vote in integer from 1 to 5
 		 */
 		private void sendVote(int i) {
@@ -242,12 +245,9 @@ public class Gui extends JFrame{
 			
 			queuePanel.setBorder(new EtchedBorder());		
 				jl = new JLabel("Kölista");
-			//	jl.setBorder(new EtchedBorder());
 				
 				qOrderPanel = new JPanel();
 				qOrderPanel.setBorder(new EtchedBorder());
-				
-
 					
 					qOrderList = new JPanel(new GridLayout(noOfUsers,1));
 					
@@ -293,7 +293,6 @@ public class Gui extends JFrame{
 			votePanel.setLayout(new BoxLayout(votePanel, BoxLayout.PAGE_AXIS));
 			
 			jl2 = new JLabel("Rösta på: ");
-		//	jl2.setBorder(new EtchedBorder());	
 			
 			JPanel subHeadPanel = new JPanel();
 			subHeadPanel.setBorder(new EtchedBorder());
@@ -314,7 +313,9 @@ public class Gui extends JFrame{
 		}
 		
 		/**
-		 * Makes menubar
+		 * Creates a menubar which holds different functionalities in the application.
+		 * Menubar contains buttons to add a request for the fika, an update button,
+		 * quit button and help button
 		 */
 		private void makeMenuBar() {
 			
@@ -394,11 +395,14 @@ public class Gui extends JFrame{
 			
 		}
 		
-		
+		/**
+		 * Prompts the user to write a request for the fika and adds it to the client
+		 */
 		public void newRequest() {
 			String request = JOptionPane.showInputDialog("Skriv in ditt önskemål här: ");
 			client.addNewRequests(request);
 		}
+		
 		/**
 		 * Shows the help notification
 		 */
