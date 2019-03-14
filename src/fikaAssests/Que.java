@@ -12,7 +12,6 @@ import java.util.*;
  */
 
 public class Que implements Serializable{
-	private Group g;
 	private ArrayList<User> users;
 	
 	public Que() {
