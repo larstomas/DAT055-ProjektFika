@@ -72,7 +72,7 @@ public class Gui extends JFrame{
 			votingButtons = new ArrayList<>();
 			highScore = new ArrayList<>();
 			userScore = new ArrayList<>();
-			setTitle("FikaQuest: " + client.getUser().getID());
+			setTitle("FikaListan: " + client.getUser().getID());
 			d = new Dimension(1100,200);
 			Timer timer = new Timer(1000, e->this.client.recieveAndSend());
 	        timer.start();
